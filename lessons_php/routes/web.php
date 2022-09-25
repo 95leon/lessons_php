@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\IndexAdminController;
+use App\Http\Controllers\IndexHomeController;
+use App\Http\Controllers\News\IndexNewsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [IndexHomeController::class, 'index']);
+Route::view('/about', 'about');
 
-Route::get('/news', function () {
-    return view('news');
-});
+Route::name('admin')
+    ->prefix('admin')
+    ->group(function () {
+        Route::get('/', [IndexAdminController::class, 'index'])->name('index');
+        Route::get('/addnews', [IndexAdminController::class, 'addNews'])->name('addnews');
+    });
 
-Route::get('/about', function () {
-    return view('about');
-});
+Route::name('news.')
+    ->prefix('news')
+    ->group(function () {
+        Route::get('/', [IndexNewsController::class, 'index'])->name('index');
+        Route::get('/category/{id}', [IndexNewsController::class, 'newsCategory'])->name('category');
+        Route::get('/category/message/{id}', [IndexNewsController::class, 'newsItem'])->name('category.message');
+    });
