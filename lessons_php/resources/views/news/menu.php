@@ -1,2 +1,2 @@
-<a href="/">Главная</a>
-<a href="/news">Все новости</a>
+<a href="<?= route('index') ?>">Главная</a>
+<a href="<?= route('news.index') ?>">Все новости</a>

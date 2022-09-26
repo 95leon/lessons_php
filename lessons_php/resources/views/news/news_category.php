@@ -14,7 +14,7 @@
     <?php include_once('menu.php') ?>
     <h1>Новости категории</h1>
     <?php foreach ($news as $item) : ?>
-        <a href="/news/category/message/<?= $item['id'] ?>"><?= $item['title'] ?></a><br>
+        <a href="<?= route('news.category.message', $item['id']) ?>"><?= $item['title'] ?></a><br>
     <?php endforeach; ?>
 </body>
 

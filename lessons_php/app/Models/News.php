@@ -244,7 +244,7 @@ class News
     public static function getCategoryNews($category_id): ?array
     {
         $news = [];
-        foreach (static::getNews() as $item) {
+        foreach (static::$news as $item) {
             if ($item['category_id'] == $category_id) {
                 $news[] = $item;
             }
