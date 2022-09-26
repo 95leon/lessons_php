@@ -13,7 +13,7 @@
 <body>
     <?php include_once('menu.php') ?>
     <form>
-        <h4>Добавление статьи</h4>
+        <h1>Добавление статьи</h1>
         <input style="margin-bottom: 3px;" type="text" name="title" placeholder="заголовок статьи"><br>
         <input style="margin-bottom: 3px;" type="text" name="text" placeholder="тело статьи"><br>
         <input style="margin-bottom: 3px;" type="text" name="description" placeholder="краткое описание"><br>

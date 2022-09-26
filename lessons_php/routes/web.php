@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [IndexHomeController::class, 'index']);
 Route::view('/about', 'about');
 
-Route::name('admin')
+Route::name('admin.')
     ->prefix('admin')
     ->group(function () {
         Route::get('/', [IndexAdminController::class, 'index'])->name('index');
@@ -30,6 +30,6 @@ Route::name('news.')
     ->prefix('news')
     ->group(function () {
         Route::get('/', [IndexNewsController::class, 'index'])->name('index');
-        Route::get('/category/{id}', [IndexNewsController::class, 'newsCategory'])->name('category');
+        Route::get('/category/{category_id}', [IndexNewsController::class, 'newsCategory'])->name('category');
         Route::get('/category/message/{id}', [IndexNewsController::class, 'newsItem'])->name('category.message');
     });

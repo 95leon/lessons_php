@@ -12,7 +12,7 @@
 
 <body>
     <?php include_once('menu.php') ?>
-    <h1>Админ главная</h1>
+    <h1>Страница авторизации</h1>
     <form>
         <h4>Авторизация</h4>
         <input style="margin-bottom: 3px;" type="text" name="login" placeholder="ваш логин"><br>

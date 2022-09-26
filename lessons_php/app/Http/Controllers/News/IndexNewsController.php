@@ -15,9 +15,9 @@ class IndexNewsController extends Controller
         return view('news.index')->with('news', $news);
     }
 
-    public function newsCategory($id)
+    public function newsCategory($category_id)
     {
-        $news = News::getCategoryNews($id);
+        $news = News::getCategoryNews($category_id);
         return view('news.news_category')->with('news', $news);
     }
 
