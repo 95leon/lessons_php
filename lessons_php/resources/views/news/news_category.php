@@ -4,16 +4,18 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Новости</title>
+    <title>Категория новостей</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
 
 <body>
-    <a href="/">Главная страница</a>
-    <a href="/about">О нас</a>
-    <h1>Новости проекта</h1>
+    <?php include_once('menu.php') ?>
+    <h1>Новости категории</h1>
+    <?php foreach ($news as $item) : ?>
+        <a href="/news/category/message/<?= $item['id'] ?>"><?= $item['title'] ?></a><br>
+    <?php endforeach; ?>
 </body>
 
 </html>

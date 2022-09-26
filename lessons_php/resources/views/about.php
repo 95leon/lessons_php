@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -8,9 +9,10 @@
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
+
 <body>
-    <a href="/">Главная страница</a>
-    <a href="/news">Новости</a>
+    <?php include_once('menu.php') ?>
     <h1>О нашем проекте</h1>
 </body>
+
 </html>
