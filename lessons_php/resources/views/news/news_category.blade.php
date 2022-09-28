@@ -1,6 +1,12 @@
 @extends('layouts.main')
-@section('content')
+
+@section('title', 'Новости категории')
+
+@section('menu')
     @include('news.menu')
+@endsection
+
+@section('content')
     <h1>Новости категории</h1>
     @forelse ($news as $item)
         <a href="{{ route('news.category.message', $item['id']) }}">{{ $item['title'] }}</a><br>

@@ -1,7 +1,12 @@
 @extends('layouts.main')
 
-@section('content')
+@section('title', 'Авторизация')
+
+@section('menu')
     @include('admin.menu')
+@endsection
+
+@section('content')
     <h1>Страница авторизации</h1>
     <form>
         <h4>Авторизация</h4>

@@ -1,6 +1,11 @@
 @extends('layouts.main')
 
-<section('content')>
+@section ('title', 'Главная страница')
+
+@section('menu')
     @include('menu')
+@endsection
+
+@section('content')
     <h1>Главная страница нашего агрегатора новостей</h1>
-    </section>
+@endsection

@@ -1,6 +1,12 @@
 @extends('layouts.main')
-@section('content')
+
+@section('title', 'Новость')
+
+@section('menu')
     @include('news.menu')
+@endsection
+
+@section('content')
     <h1>Новость</h1>
     @if ($news)
         <h2>{{ $news['title'] }}</h2>

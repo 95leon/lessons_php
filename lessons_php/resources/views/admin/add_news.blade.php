@@ -1,7 +1,12 @@
 @extends('layouts.main')
 
-@section('content')
+@section('title', 'Добавление новости')
+
+@section('menu')
     @include('admin.menu')
+@endsection
+
+@section('content')
     <form>
         <h1>Добавление статьи</h1>
         <textarea style="margin-bottom: 3px;" cols="60" rows="1" name="title" placeholder="заголовок статьи"></textarea><br>
