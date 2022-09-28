@@ -15,11 +15,7 @@ class IndexNewsController extends Controller
     {
         $news_category = NewsCategory::getCategories();
         $news = News::getNews();
-        if (count($news_category) < 1 && count($news) < 1) {
-            return redirect()->route('index');
-        } else {
-            return view('news.index')->with('news', $news)->with('news_category', $news_category);
-        }
+        return view('news.index')->with('news', $news)->with('news_category', $news_category);
     }
 
     public function newsCategory($category_id)
@@ -31,10 +27,6 @@ class IndexNewsController extends Controller
     public function newsItem($id)
     {
         $news = News::getNewsById($id);
-        if (count($news) < 1) {
-            return redirect()->route('news.index');
-        } else {
-            return view('news.news_item')->with('news', $news);
-        }
+        return view('news.news_item')->with('news', $news);
     }
 }
