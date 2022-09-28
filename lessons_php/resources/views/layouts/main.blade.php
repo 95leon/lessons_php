@@ -11,10 +11,12 @@
 </head>
 
 <body>
-    @yield('header')
-    @yield('menu')
-    @yield('content')
-    @yield('footer')
+    <div class="container-fluid mt-2">
+        @yield('header')
+        @yield('menu')
+        @yield('content')
+        @yield('footer')
+    </div>
 </body>
 
 </html>

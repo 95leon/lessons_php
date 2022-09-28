@@ -4,7 +4,7 @@ namespace App\Models;
 
 class News
 {
-    private static $news = [
+    private array $news = [
         1 => [
             'id' => 1,
             'category_id' => 1,
@@ -264,15 +264,15 @@ class News
         ],
     ];
 
-    public static function getNews(): array
+    public function getNews(): array
     {
-        return static::$news;
+        return $this->news;
     }
 
-    public static function getCategoryNews($category_id): ?array
+    public function getCategoryNews($category_id): ?array
     {
         $news = [];
-        foreach (static::getNews() as $item) {
+        foreach ($this->getNews() as $item) {
             if ($item['category_id'] == $category_id) {
                 $news[] = $item;
             }
@@ -280,9 +280,9 @@ class News
         return $news;
     }
 
-    public static function getNewsById($id): ?array
+    public function getNewsById($id): ?array
     {
-        $news = self::getNews();
+        $news = $this->getNews();
         if (array_key_exists($id, $news)) {
             return $news[$id];
         } else {
