@@ -33,3 +33,7 @@ Route::name('news.')
         Route::get('/category/{category_id}', [IndexNewsController::class, 'newsCategory'])->name('category');
         Route::get('/category/message/{id}', [IndexNewsController::class, 'newsItem'])->name('category.message');
     });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

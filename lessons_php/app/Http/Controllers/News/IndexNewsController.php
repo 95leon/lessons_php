@@ -11,30 +11,24 @@ use Illuminate\Support\Facades\Redirect;
 
 class IndexNewsController extends Controller
 {
-    public function index()
+    public function index(News $news, NewsCategory $newsCategory)
     {
-        $news_category = NewsCategory::getCategories();
-        $news = News::getNews();
-        if (count($news_category) < 1 && count($news) < 1) {
-            return redirect()->route('index');
-        } else {
-            return view('news.index')->with('news', $news)->with('news_category', $news_category);
-        }
+        $news_category = $newsCategory->getCategories();
+        $news = $news->getNews();
+        return view('news.index')->with('news', $news)->with('news_category', $news_category);
     }
 
-    public function newsCategory($category_id)
+    public function newsCategory($category_id, News $new, NewsCategory $newsCategory)
     {
-        $news = News::getCategoryNews($category_id);
-        return view('news.news_category')->with('news', $news);
+        $news = $new->getCategoryNews($category_id);
+        $news_category = $newsCategory->getCategories();
+        $categoryName = $newsCategory->getCategoryNameById($category_id);
+        return view('news.news_category')->with('news', $news)->with('categoryName', $categoryName)->with('news_category', $news_category);
     }
 
-    public function newsItem($id)
+    public function newsItem($id, News $news)
     {
-        $news = News::getNewsById($id);
-        if (count($news) < 1) {
-            return redirect()->route('news.index');
-        } else {
-            return view('news.news_item')->with('news', $news);
-        }
+        $news = $news->getNewsById($id);
+        return view('news.news_item')->with('news', $news);
     }
 }
