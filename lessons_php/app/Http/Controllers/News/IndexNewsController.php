@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class IndexNewsController extends Controller
 {
-    public function index(NewsCategory $newsCategory, News $news)
+    public function index(News $news, NewsCategory $newsCategory)
     {
         $news_category = $newsCategory->getCategories();
         $news = $news->getNews();
@@ -21,8 +21,9 @@ class IndexNewsController extends Controller
     public function newsCategory($category_id, News $new, NewsCategory $newsCategory)
     {
         $news = $new->getCategoryNews($category_id);
-        $categoryName = $newsCategory->getNameCategoryById($category_id);
-        return view('news.news_category')->with('news', $news)->with('categoryName', $categoryName);
+        $news_category = $newsCategory->getCategories();
+        $categoryName = $newsCategory->getCategoryNameById($category_id);
+        return view('news.news_category')->with('news', $news)->with('categoryName', $categoryName)->with('news_category', $news_category);
     }
 
     public function newsItem($id, News $news)

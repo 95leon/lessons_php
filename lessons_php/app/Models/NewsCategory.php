@@ -33,9 +33,13 @@ class NewsCategory
         return $this->news_category;
     }
 
-    public function getNameCategoryById(int $id): string
+    public function getCategoryNameById(int $id): ?string
     {
         $categories = $this->getCategories();
-        return $categories[$id]['name_category'];
+        if (array_key_exists($id, $categories)) {
+            return $categories[$id]['name_category'];
+        } else {
+            return null;
+        }        
     }
 }
