@@ -7,6 +7,7 @@ use App\Models\News;
 use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class IndexAdminController extends Controller
 {
@@ -33,5 +34,11 @@ class IndexAdminController extends Controller
         }
         $categories = $newsCategory->getCategories();
         return view('admin.create')->with('categories', $categories);
+    }
+
+    public function saveNews(NewsCategory $newsCategory)
+    {
+        $categories = $newsCategory->getCategories();
+        return view('admin.save')->with('categories', $categories);
     }
 }

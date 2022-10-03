@@ -11,5 +11,9 @@
 </li>
 
 <li>
+    <a class="nav-link {{ request()->routeIs('admin.save')?' active':'' }}" href="{{ route('admin.save') }}">Скачать</a>
+</li>
+
+<li>
     <a class="nav-link {{ request()->routeIs('news.index')?' active':'' }}" href="{{ route('news.index') }}">Новости</a>
 </li>
