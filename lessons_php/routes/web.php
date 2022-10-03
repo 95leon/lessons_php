@@ -18,20 +18,24 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexHomeController::class, 'index'])->name('index');
 Route::view('/about', 'about')->name('about');
+Route::get('users/export/', [UsersController::class, 'export']);
 
 Route::name('admin.')
     ->prefix('admin')
     ->group(function () {
         Route::get('/', [IndexAdminController::class, 'index'])->name('index');
-        Route::get('/addnews', [IndexAdminController::class, 'addNews'])->name('addnews');
+        Route::match(['get', 'post'], '/create', [IndexAdminController::class, 'create'])->name('create');
     });
 
 Route::name('news.')
     ->prefix('news')
     ->group(function () {
         Route::get('/', [IndexNewsController::class, 'index'])->name('index');
-        Route::get('/category/{category_id}', [IndexNewsController::class, 'newsCategory'])->name('category');
-        Route::get('/category/message/{id}', [IndexNewsController::class, 'newsItem'])->name('category.message');
+        Route::prefix('category')
+            ->group(function () {
+                Route::get('/{categoryId}', [IndexNewsController::class, 'newsCategory'])->name('category');
+                Route::get('/message/{id}', [IndexNewsController::class, 'newsItem'])->name('category.message');
+            });
     });
 
 Auth::routes();
