@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\IndexAdminController;
 use App\Http\Controllers\IndexHomeController;
 use App\Http\Controllers\News\IndexNewsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ExportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +19,7 @@ use App\Http\Controllers\UsersController;
 
 Route::get('/', [IndexHomeController::class, 'index'])->name('index');
 Route::view('/about', 'about')->name('about');
-Route::match(['get', 'post'], '/users/export/', [UsersController::class, 'export'])->name('users.export');
+Route::match(['get', 'post'], '/users/export/', [ExportController::class, 'exportNews'])->name('users.export');
 
 Route::name('admin.')
     ->prefix('admin')

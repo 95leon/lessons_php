@@ -6,7 +6,7 @@ use App\Models\News;
 use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
-class UsersExport implements FromCollection
+class NewsExport implements FromCollection
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -14,7 +14,9 @@ class UsersExport implements FromCollection
     public function collection()
     {
         $news = new News;
-        $export = $news->getCategoryNews($_POST['category']);
+        $exports = $news->getCategoryNews($_POST['category']);
+        $header[] = array_keys($exports[1]);
+        $export = array_merge($header, $exports);
         return collect($export);
     }
 }
