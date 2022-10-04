@@ -7,7 +7,6 @@
 @endsection
 
 @section('content')
-<h1>Новость</h1>
 @if ($news)
 <h2>{{ $news['title'] }}</h2>
 <h4>{{ $news['text'] }}</h4>

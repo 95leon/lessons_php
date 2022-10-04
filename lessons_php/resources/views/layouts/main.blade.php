@@ -22,17 +22,16 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+            <div class="fs-4">
+            </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
+                    <ul class="navbar-nav me-auto fs-4">
+                        @yield('menu')
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -73,9 +72,8 @@
             </div>
         </nav>
 
-        <main class="container">
+        <main class="container-xxl mt-4">
             @yield('header')
-            @yield('menu')
             @yield('content')
             @yield('footer')
         </main>

@@ -12,10 +12,28 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function test_the_application_returns_a_successful_response()
+  
+    public function testIndexNewsPage()
     {
-        $response = $this->get('/');
+        $response = $this->get('/news/');
 
         $response->assertStatus(200);
+        $response->assertSeeText('Все новости');
+    }
+
+    public function testNewsCategoryPage()
+    {
+        $response = $this->get('/news/category/1');
+
+        $response->assertStatus(200);
+        $response->assertSeeText('Культура');
+    }
+
+    public function testNewsMessagePage()
+    {
+        $response = $this->get('/news/category/message/1');
+
+        $response->assertStatus(200);
+        $response->assertSeeText('Шарлиз Терон');
     }
 }
