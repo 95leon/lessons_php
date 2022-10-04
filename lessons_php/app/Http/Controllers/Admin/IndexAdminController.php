@@ -7,7 +7,6 @@ use App\Models\News;
 use App\Models\NewsCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Facades\Excel;
 
 class IndexAdminController extends Controller
 {
@@ -22,9 +21,9 @@ class IndexAdminController extends Controller
             $getNews = $news->getNews();
             $createNews = [
                 'id' => array_key_last($getNews) + 1,
-                'category_id' => $_POST['category'],
-                'title' => $_POST['title'],
-                'text' => $_POST['text'],
+                'category_id' => $request->input('category'),
+                'title' => $request->input('title'),
+                'text' => $request->input('text'),
                 'isPrivate' => isset($_POST['isPrivate'])
             ];
             $getNews[] = $createNews;

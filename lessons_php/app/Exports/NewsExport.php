@@ -3,7 +3,6 @@
 namespace App\Exports;
 
 use App\Models\News;
-use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class NewsExport implements FromCollection
@@ -13,8 +12,9 @@ class NewsExport implements FromCollection
      */
     public function collection()
     {
+        $category = $_POST['category'];
         $news = new News;
-        $exports = $news->getCategoryNews($_POST['category']);
+        $exports = $news->getCategoryNews($category);
         $header[] = array_keys($exports[1]);
         $export = array_merge($header, $exports);
         return collect($export);

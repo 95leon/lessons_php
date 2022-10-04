@@ -22,7 +22,7 @@
                             <label for="newsCategory">Категория новости</label>
                             <select name="category" id="newsCategory" class="form-control">
                                 @forelse($categories as $item)
-                                <option @if ($item['id']==old('category')) selected @endif value="{{ $item['id'] }}">{{
+                                <option {{ $item['id'] == old('category') ? 'selected' : '' }} value="{{ $item['id'] }}">{{
                                     $item['name_category'] }}</option>
                                 @empty
                                 <option value="0" selected>Нет категории</option>
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="form-check">
-                            <input @if (old('isPrivate')==="1" ) checked @endif id="newsPrivate" name="isPrivate"
+                            <input {{ old('isPrivate') === 1 ? 'checked' : '' }} id="newsPrivate" name="isPrivate"
                                 type="checkbox" value="1" class="form-check-input">
                             <label for="newsPrivate">Приватная</label>
                         </div>
