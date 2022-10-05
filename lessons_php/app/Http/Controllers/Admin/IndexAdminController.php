@@ -24,7 +24,7 @@ class IndexAdminController extends Controller
                 'category_id' => $request->input('category'),
                 'title' => $request->input('title'),
                 'text' => $request->input('text'),
-                'isPrivate' => isset($_POST['isPrivate'])
+                'isPrivate' => isset($request->isPrivate)
             ];
             $getNews[] = $createNews;
             Storage::disk('local')->put('news.json', json_encode($getNews, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
