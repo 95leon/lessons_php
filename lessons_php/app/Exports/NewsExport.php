@@ -3,7 +3,6 @@
 namespace App\Exports;
 
 use App\Models\News;
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class NewsExport implements FromCollection
@@ -21,9 +20,7 @@ class NewsExport implements FromCollection
     public function collection()
     {
         $news = new News;
-        $exports = $news->getCategoryNews($this->request['category']);
-        $header[] = array_keys($exports[1]);
-        $export = array_merge($header, $exports);
-        return collect($export);
+        $exports = json_decode(json_encode($news->getCategoryNews($this->request['category'])));
+        return collect($exports);
     }
 }

@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('news', function (Blueprint $table) {
+            $table->id('id');
+            $table->integer('category_id')->comment('категория новости');
+            $table->string('title')->comment('заголовок статьи');
+            $table->text('text')->comment('текст статьи');
+            $table->boolean('is_private')
+            ->default(false)
+            ->comment('приватность статьи');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('news');
+    }
+};

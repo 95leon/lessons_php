@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\NewsCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class IndexAdminController extends Controller
 {
@@ -18,18 +18,14 @@ class IndexAdminController extends Controller
     public function create(Request $request, NewsCategory $newsCategory, News $news)
     {
         if ($request->isMethod('post')) {
-            $getNews = $news->getNews();
-            $createNews = [
-                'id' => array_key_last($getNews) + 1,
+            DB::table('news')->insert([
                 'category_id' => $request->input('category'),
                 'title' => $request->input('title'),
                 'text' => $request->input('text'),
-                'isPrivate' => isset($request->isPrivate)
-            ];
-            $getNews[] = $createNews;
-            Storage::disk('local')->put('news.json', json_encode($getNews, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+                'is_private' => isset($request->isPrivate)
+            ]);
             $request->flash();
-            return redirect()->route('news.category.message', [$createNews['id']]);
+            return redirect()->route('news.category.message', [DB::getPdo()->lastInsertId()]);
         }
         $categories = $newsCategory->getCategories();
         return view('admin.create')->with('categories', $categories);

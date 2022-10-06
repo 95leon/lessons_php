@@ -19,7 +19,7 @@
                             <h5>Выберите категорию</h5>
                             <select name="category" class="form-control">
                                 @forelse($categories as $item)
-                                <option value="{{ $item['id'] }}">{{ $item['name_category'] }}</option>
+                                <option value="{{ $item->id }}">{{ $item->category_name }}</option>
                                 @empty
                                 <option value="0" selected>Нет категории</option>
                                 @endforelse

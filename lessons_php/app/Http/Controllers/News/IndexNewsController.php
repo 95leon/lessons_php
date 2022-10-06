@@ -5,9 +5,6 @@ namespace App\Http\Controllers\News;
 use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\NewsCategory;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class IndexNewsController extends Controller
 {
