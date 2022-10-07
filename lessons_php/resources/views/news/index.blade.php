@@ -8,11 +8,12 @@
 
 @section('content')
 @forelse ($news as $item)
-@if (!$item['isPrivate'])
-<a href="{{ route('news.category.message', $item['id']) }}" class="fs-5">{{ $item['title'] }} </a><br>
+@if ($item->is_private === 0)
+<a href="{{ route('news.category.message', $item->id) }}" class="fs-5">{{ $item->title }} </a><br>
 <hr>
 @else
-<mark class="fs-5">{{ $item['title'] }}</mark><a href="{{ route('admin.index') }}" style="color: red;" class="fs-5 text-decoration-none"> >>> авторизуйтесь для просмотра</a><br>
+<mark class="fs-5">{{ $item->title }}</mark><a href="{{ route('admin.index') }}" style="color: red;"
+    class="fs-5 text-decoration-none"> >>> авторизуйтесь для просмотра</a><br>
 <hr>
 @endif
 @empty

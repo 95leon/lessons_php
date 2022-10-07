@@ -7,16 +7,20 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class NewsExport implements FromCollection
 {
+    private array $request;
+
+    public function __construct(array $request)
+    {
+        $this->request = $request;
+    }
     /**
      * @return \Illuminate\Support\Collection
      */
+
     public function collection()
     {
-        $category = $_POST['category'];
         $news = new News;
-        $exports = $news->getCategoryNews($category);
-        $header[] = array_keys($exports[1]);
-        $export = array_merge($header, $exports);
-        return collect($export);
+        $exports = json_decode(json_encode($news->getCategoryNews($this->request['category'])));
+        return collect($exports);
     }
 }

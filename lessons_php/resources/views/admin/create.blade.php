@@ -22,8 +22,8 @@
                             <label for="newsCategory">Категория новости</label>
                             <select name="category" id="newsCategory" class="form-control">
                                 @forelse($categories as $item)
-                                <option {{ $item['id'] == old('category') ? 'selected' : '' }} value="{{ $item['id'] }}">{{
-                                    $item['name_category'] }}</option>
+                                <option {{ $item->id == old('category') ? 'selected' : '' }} value="{{ $item->id }}">{{
+                                    $item->category_name }}</option>
                                 @empty
                                 <option value="0" selected>Нет категории</option>
                                 @endforelse
