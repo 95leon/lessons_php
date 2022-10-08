@@ -21,6 +21,7 @@ class NewsExport implements FromCollection
     {
         $news = new News;
         $exports = json_decode(json_encode($news->getCategoryNews($this->request['category'])));
-        return collect($exports);
+        $header = array_keys((array) array_shift($exports));
+        return collect($exports)->prepend($header);
     }
 }
