@@ -36,7 +36,7 @@ Route::name('news.')
         Route::prefix('category')
             ->group(function () {
                 Route::get('/{categoryId}', [IndexNewsController::class, 'newsCategory'])->name('category');
-                Route::get('/message/{id}', [IndexNewsController::class, 'newsItem'])->name('category.message');
+                Route::get('/message/{news}', [IndexNewsController::class, 'newsItem'])->name('category.message');
             });
     });
 

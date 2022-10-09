@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
-use App\Models\NewsCategory;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,10 +15,10 @@ class IndexAdminController extends Controller
         return view('admin.index');
     }
 
-    public function create(Request $request, NewsCategory $newsCategory, News $news)
+    public function create(Request $request, News $news)
     {
         if ($request->isMethod('post')) {
-            DB::table('news')->insert([
+            $news->insert([
                 'category_id' => $request->input('category'),
                 'title' => $request->input('title'),
                 'text' => $request->input('text'),
@@ -27,13 +27,13 @@ class IndexAdminController extends Controller
             $request->flash();
             return redirect()->route('news.category.message', [DB::getPdo()->lastInsertId()]);
         }
-        $categories = $newsCategory->getCategories();
-        return view('admin.create')->with('categories', $categories);
+        $categories = Category::all();
+        return view('admin.create', ['categories' => $categories]);
     }
 
-    public function saveNews(NewsCategory $newsCategory)
+    public function saveNews()
     {
-        $categories = $newsCategory->getCategories();
-        return view('admin.save')->with('categories', $categories);
+        $categories = Category::all();
+        return view('admin.save', ['categories' => $categories]);
     }
 }

@@ -3,28 +3,26 @@
 namespace App\Http\Controllers\News;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\News;
-use App\Models\NewsCategory;
 
 class IndexNewsController extends Controller
 {
-    public function index(News $news)
+    public function index()
     {
-        $news = $news->getNews();
-        return view('news.index')->with('news', $news);
+        return view('news.index', ['news' => News::all()]);
     }
 
-    public function newsCategory($categoryId, News $news, NewsCategory $newsCategory)
+    public function newsCategory($categoryId, News $news, Category $categories)
     {
-        $news = $news->getCategoryNews($categoryId);
-        $categories = $newsCategory->getCategories();
-        $categoryName = $newsCategory->getCategoryNameById($categoryId);
-        return view('news.news_category')->with('news', $news)->with('categoryName', $categoryName)->with('newsCategory', $categories);
+        $news = News::all();
+        $categories = Category::all();
+        $categoryName = $categories->where('id', $categoryId)->pluck('category_name')->get(0);
+        return view('news.news_category', ['news' => $news, 'category' => $categories])->with('categoryName', $categoryName);
     }
 
-    public function newsItem($id, News $news)
+    public function newsItem(News $news)
     {
-        $news = $news->getNewsById($id);
-        return view('news.news_item')->with('news', $news);
+        return view('news.news_item', ['news' => $news]);
     }
 }

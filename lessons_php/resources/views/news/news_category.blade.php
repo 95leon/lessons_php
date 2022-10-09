@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-2 mt-5">
         <div class="align-baseline">
-            @foreach ($newsCategory as $item)
+            @foreach ($category as $item)
             <a href="{{ route('news.category', $item->id) }}" class="fs-3 text-decoration-none link-secondary">{{
                 $item->category_name }}</a><br>
             @endforeach
