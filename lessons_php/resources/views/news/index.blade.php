@@ -7,6 +7,9 @@
 @endsection
 
 @section('content')
+@php
+    echo $news->links();
+@endphp 
 @forelse ($news as $item)
 @if ($item->is_private === 0)
 <a href="{{ route('news.category.message', $item->id) }}" class="fs-5">{{ $item->title }} </a><br>
