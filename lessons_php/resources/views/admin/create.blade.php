@@ -7,8 +7,6 @@
 @endsection
 
 @section('content')
-
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -43,7 +41,7 @@
                         </div>
 
                         <div class="form-check">
-                            <input {{ old('isPrivate') === 1 ? 'checked' : '' }} id="newsPrivate" name="isPrivate"
+                            <input {{ old('isPrivate')===1 ? 'checked' : '' }} id="newsPrivate" name="isPrivate"
                                 type="checkbox" value="1" class="form-check-input">
                             <label for="newsPrivate">Приватная</label>
                         </div>
@@ -58,5 +56,29 @@
         </div>
     </div>
 </div>
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card align-items-center">
+                <div class="card-header display-6 text-muted">{{ __('Добавить категорию новостей') }}</div>
+                <div class="card-body">
 
+                    <form action="{{ route('admin.create') }}" method="post">
+                        @csrf
+
+                        <div class="form-group">
+                            <label for="categoryName">Заголовок категории</label>
+                            <textarea required class="form-control" id="categoryName" cols="120" rows="1" name="categoryName"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-outline-primary mt-2" value="Добавить категорию">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

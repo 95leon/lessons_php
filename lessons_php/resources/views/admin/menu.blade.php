@@ -11,6 +11,10 @@
 </li>
 
 <li>
+    <a class="nav-link {{ request()->routeIs('admin.edit')?' active':'' }}" href="{{ route('admin.edit') }}">Редактирование</a>
+</li>
+
+<li>
     <a class="nav-link {{ request()->routeIs('admin.save')?' active':'' }}" href="{{ route('admin.save') }}">Скачать</a>
 </li>
 

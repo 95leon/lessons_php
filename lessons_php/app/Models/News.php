@@ -10,4 +10,19 @@ class News extends Model
     public $timestamps = false;
     protected $fillable = ['id', 'category_id','title', 'text', 'is_private'];
     use HasFactory;
+	/**
+	 * @return mixed
+	 */
+	function getFillable() {
+		return $this->fillable;
+	}
+	
+	/**
+	 * @param mixed $fillable 
+	 * @return News
+	 */
+	function setFillable($fillable): self {
+		$this->fillable = $fillable;
+		return $this;
+	}
 }

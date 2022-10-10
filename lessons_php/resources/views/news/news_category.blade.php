@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-2 mt-5">
         <div class="align-baseline">
-            @foreach ($category as $item)
+            @foreach ($categories as $item)
             <a href="{{ route('news.category', $item->id) }}" class="fs-3 text-decoration-none link-secondary">{{
                 $item->category_name }}</a><br>
             @endforeach
@@ -18,6 +18,7 @@
     </div>
     <div class="col-md-10">
         <h1 class="mb-4 text-muted text-center">{{ $categoryName }}</h1>
+        {{ $news->links() }}
         @forelse ($news as $item)
         @if ($item->is_private == 0)
         <a href="{{ route('news.category.message', $item->id) }}" class="fs-5">{{ $item->title }}</a><br>
