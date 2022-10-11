@@ -7,7 +7,7 @@
 </li>
 
 <li>
-    <a class="nav-link {{ request()->routeIs('admin.create')?' active':'' }}" href="{{ route('admin.create') }}">Добавление новости</a>&nbsp
+    <a class="nav-link {{ request()->routeIs('admin.create')?' active':'' }}" href="{{ route('admin.create') }}">Добавление</a>&nbsp
 </li>
 
 <li>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Category extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['id', 'category_name'];
+    protected $fillable = ['category_name'];
     use HasFactory;
 	/**
 	 * @return mixed

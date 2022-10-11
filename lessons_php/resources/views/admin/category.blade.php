@@ -18,12 +18,18 @@
                         <div class="form-group">
                             <label for="categoryName">Заголовок категории</label>
                             <textarea required class="form-control" id="categoryName" cols="120" rows="1"
-                                name="categoryName" value="{{ $category->category_name }}"></textarea>
-                        </div>
+                                name="category_name" value="{{ $category->category_name }}"></textarea>
+                        </div><br>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-outline-primary mt-2" value="Изменить категорию">
+                            <input type="submit" class="btn btn-outline-primary mt-2" value="Изменить">
                         </div>
-                    </form>
+                    </form><br>
+                    <form action="{{ route('admin.delete.category', $category->id) }}" method="post">
+                        @csrf
+                        <input type="hidden" name="id" value="{{ $category->id }}">
+                        <input type="submit" class="btn btn-outline-danger" value=" Удалить ">
+                    </form><br>
+                    <a href="#" onclick="history.back();return false;" class="fs-5">Назад</a>
                 </div>
             </div>
         </div>

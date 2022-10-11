@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class News extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['id', 'category_id','title', 'text', 'is_private'];
+    protected $fillable = ['category_id','title', 'text', 'is_private'];
     use HasFactory;
 	/**
 	 * @return mixed

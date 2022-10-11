@@ -18,18 +18,19 @@ class IndexAdminController extends Controller
     public function create(Request $request, News $news, Category $category)
     {
         if ($request->isMethod('post')) {
-            if ($request->input('categoryName')) {
-                $category->insert([
-                    'category_name' => $request->input('categoryName')
-                ]);
+            if ($request->input('category_name')) {
+                $category->fill($request->all());
+                $category->save();
                 return view('admin.create', ['categories' => $category->all()]);
             }
-            $news->insert([
-                'category_id' => $request->input('category'),
-                'title' => $request->input('title'),
-                'text' => $request->input('text'),
-                'is_private' => isset($request->isPrivate)
-            ]);
+            if (!$request['is_private']) {
+                $request['is_private'] = 0;
+            } else {
+                $request['is_private'] = 1;
+            }
+
+            $news->fill($request->all());
+            $news->save();
             $request->flash();
             return redirect()->route('news.category.message', [DB::getPdo()->lastInsertId()]);
         }
@@ -50,9 +51,8 @@ class IndexAdminController extends Controller
     public function editCategory(Category $category, Request $request)
     {
         if ($request->isMethod('post')) {
-            $category->update([
-                'category_name' => $request->input('categoryName')
-            ]);
+            $category->fill($request->all())
+                ->save();
         }
         return view('admin.category', ['category' => $category]);
     }
@@ -60,14 +60,28 @@ class IndexAdminController extends Controller
     public function editMessage(News $news, Request $request)
     {
         if ($request->isMethod('post')) {
-            $is_private = $request->input('isPrivate');
-            $news->update([
-                'category_id' => $request->input('category'),
-                'title' => $request->input('title'),
-                'text' => $request->input('text'),
-                'is_private' => isset($is_private)
-            ]);
+            if (!$request['is_private']) {
+                $request['is_private'] = 0;
+            } else {
+                $request['is_private'] = 1;
+            }
+            $news->fill($request->all())
+                ->save();
         }
         return view('admin.message', ['news' => $news, 'categories' => Category::all()]);
+    }
+
+    public function deleteCategory(Category $category, Request $request)
+    {
+        $category->fill($request->all())
+            ->delete();
+        return redirect()->route('admin.edit');
+    }
+
+    public function deleteMessage(News $news, Request $request)
+    {
+        $news->fill($request->all())
+            ->delete();
+        return redirect()->route('admin.edit');
     }
 }

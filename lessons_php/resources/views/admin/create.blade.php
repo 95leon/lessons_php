@@ -18,9 +18,9 @@
                         @csrf
                         <div class="form-group">
                             <label for="newsCategory">Категория новости</label>
-                            <select name="category" id="newsCategory" class="form-control">
+                            <select name="category_id" id="newsCategory" class="form-control">
                                 @forelse($categories as $item)
-                                <option {{ $item->id == old('category') ? 'selected' : '' }} value="{{ $item->id }}">{{
+                                <option {{ $item->id == old('category_id') ? 'selected' : '' }} value="{{ $item->id }}">{{
                                     $item->category_name }}</option>
                                 @empty
                                 <option value="0" selected>Нет категории</option>
@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="form-check">
-                            <input {{ old('isPrivate')===1 ? 'checked' : '' }} id="newsPrivate" name="isPrivate"
+                            <input {{ old('is_private')===1 ? 'checked' : '' }} id="newsPrivate" name="is_private"
                                 type="checkbox" value="1" class="form-check-input">
                             <label for="newsPrivate">Приватная</label>
                         </div>
@@ -68,7 +68,7 @@
 
                         <div class="form-group">
                             <label for="categoryName">Заголовок категории</label>
-                            <textarea required class="form-control" id="categoryName" cols="120" rows="1" name="categoryName"></textarea>
+                            <textarea required class="form-control" id="categoryName" cols="120" rows="1" name="category_name"></textarea>
                         </div>
 
                         <div class="form-group">

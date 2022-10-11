@@ -30,6 +30,12 @@ Route::name('admin.')
         Route::get('/edit', [IndexAdminController::class, 'editNews'])->name('edit');
         Route::match(['get', 'post'], '/category/{category}', [IndexAdminController::class, 'editCategory'])->name('category');
         Route::match(['get', 'post'], '/message/{news}', [IndexAdminController::class, 'editMessage'])->name('message');
+        Route::name('delete.')
+            ->prefix('delete')
+            ->group(function () {
+                Route::match(['get', 'post'], '/message/{news}', [IndexAdminController::class, 'deleteMessage'])->name('message');
+                Route::match(['get', 'post'], '/category/{category}', [IndexAdminController::class, 'deleteCategory'])->name('category');
+            });
     });
 
 Route::name('news.')
