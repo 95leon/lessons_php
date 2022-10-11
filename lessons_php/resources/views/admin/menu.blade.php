@@ -7,7 +7,11 @@
 </li>
 
 <li>
-    <a class="nav-link {{ request()->routeIs('admin.create')?' active':'' }}" href="{{ route('admin.create') }}">Добавление новости</a>&nbsp
+    <a class="nav-link {{ request()->routeIs('admin.create')?' active':'' }}" href="{{ route('admin.create') }}">Добавление</a>&nbsp
+</li>
+
+<li>
+    <a class="nav-link {{ request()->routeIs('admin.edit')?' active':'' }}" href="{{ route('admin.edit') }}">Редактирование</a>
 </li>
 
 <li>
