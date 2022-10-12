@@ -11,7 +11,7 @@
 </li>
 
 <li>
-    <a class="nav-link {{ request()->routeIs('admin.edit')?' active':'' }}" href="{{ route('admin.edit') }}">Редактирование</a>
+    <a class="nav-link {{ request()->routeIs('admin.edit')?' active':'' }}" href="{{ route('admin.edit', 1) }}">Редактирование</a>
 </li>
 
 <li>

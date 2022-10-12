@@ -32,29 +32,54 @@ class IndexAdminController extends Controller
             $news->fill($request->all());
             $news->save();
             $request->flash();
-            return redirect()->route('news.category.message', [DB::getPdo()->lastInsertId()]);
+            return redirect()->route(
+                'news.category.message',
+                [DB::getPdo()->lastInsertId()]
+            );
         }
-        return view('admin.create', ['categories' => $category->all()]);
+        return view(
+            'admin.create',
+            ['categories' => $category->all()]
+        );
     }
 
     public function saveNews()
     {
         $categories = Category::all();
-        return view('admin.save', ['categories' => $categories]);
+        return view(
+            'admin.save',
+            ['categories' => $categories]
+        );
     }
 
-    public function editNews()
+    public function editNews($categoryId)
     {
-        return view('admin.edit', ['categories' => Category::all(), 'news' => News::paginate(6)]);
+        $news = Category::findOrFail($categoryId)
+            ->news()
+            ->paginate(6);
+        $categories = Category::all();
+        $categoryName = $categories->where('id', $categoryId)
+            ->pluck('category_name')
+            ->get(0);
+        return view(
+            'admin.edit',
+            [
+                'categories' => $categories,
+                'news' => $news
+            ]
+        )->with('categoryName', $categoryName);
     }
 
     public function editCategory(Category $category, Request $request)
     {
         if ($request->isMethod('post')) {
-            $category->fill($request->all())
-                ->save();
+            $category->fill($request->all());
+            $category->save();
         }
-        return view('admin.category', ['category' => $category]);
+        return view(
+            'admin.category',
+            ['category' => $category]
+        );
     }
 
     public function editMessage(News $news, Request $request)
@@ -65,23 +90,33 @@ class IndexAdminController extends Controller
             } else {
                 $request['is_private'] = 1;
             }
-            $news->fill($request->all())
-                ->save();
+            $news->fill($request->all());
+            $news->save();
         }
-        return view('admin.message', ['news' => $news, 'categories' => Category::all()]);
+        return view(
+            'admin.message',
+            [
+                'news' => $news,
+                'categories' => Category::all()
+            ]
+        );
     }
 
-    public function deleteCategory(Category $category, Request $request)
+    public function deleteCategory(Request $request)
     {
-        $category->fill($request->all())
-            ->delete();
-        return redirect()->route('admin.edit');
+        $category = Category::find($request->input('id'));
+        if ($category) {
+            $category->delete();
+        }
+        return redirect()->route('admin.edit', 1);
     }
 
-    public function deleteMessage(News $news, Request $request)
+    public function deleteMessage(Request $request)
     {
-        $news->fill($request->all())
-            ->delete();
-        return redirect()->route('admin.edit');
+        $news = News::find($request->input('id'));
+        if ($news) {
+            $news->delete();
+        }
+        return redirect()->route('admin.edit', 1);
     }
 }

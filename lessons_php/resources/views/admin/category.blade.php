@@ -26,6 +26,7 @@
                     </form><br>
                     <form action="{{ route('admin.delete.category', $category->id) }}" method="post">
                         @csrf
+                        @method('delete')
                         <input type="hidden" name="id" value="{{ $category->id }}">
                         <input type="submit" class="btn btn-outline-danger" value=" Удалить ">
                     </form><br>

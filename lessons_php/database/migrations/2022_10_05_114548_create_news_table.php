@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->id('id');
-            $table->integer('category_id')->comment('категория новости');
             $table->string('title')->comment('заголовок статьи');
             $table->text('text')->comment('текст статьи');
             $table->boolean('is_private')
