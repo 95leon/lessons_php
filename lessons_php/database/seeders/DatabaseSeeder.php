@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
     {
         $faker = \Faker\Factory::create('ru_RU');
         $data = [];
-        for ($i=0; $i < 60; $i++) { 
+        for ($i=0; $i < 100; $i++) { 
             $data[] = [
                 'category_id' => rand(1, 5),
                 'title' => $faker->sentence(3, 5),

@@ -7,21 +7,29 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
-    public $timestamps = false;
-    protected $fillable = ['category_name'];
-    use HasFactory;
+	public $timestamps = false;
+	protected $fillable = ['category_name'];
+	use HasFactory;
+
+	public function news()
+	{
+		return $this->hasMany(News::class, 'category_id');
+	}
+
 	/**
 	 * @return mixed
 	 */
-	function getFillable() {
+	function getFillable()
+	{
 		return $this->fillable;
 	}
-	
+
 	/**
 	 * @param mixed $fillable 
 	 * @return Category
 	 */
-	function setFillable($fillable): self {
+	function setFillable($fillable): self
+	{
 		$this->fillable = $fillable;
 		return $this;
 	}

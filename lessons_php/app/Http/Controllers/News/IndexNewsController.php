@@ -5,6 +5,7 @@ namespace App\Http\Controllers\News;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\News;
+use SebastianBergmann\CodeCoverage\Driver\Selector;
 
 class IndexNewsController extends Controller
 {
@@ -13,16 +14,29 @@ class IndexNewsController extends Controller
         return view('news.index', ['news' => News::paginate(10)]);
     }
 
-    public function newsCategory($categoryId, News $news, Category $categories)
+    public function newsCategory($categoryId, Category $categories)
     {
-        $news = News::whereCategory_id($categoryId)->paginate(5);
+        $news = Category::findOrFail($categoryId)
+            ->news()
+            ->paginate(7);
         $categories = Category::all();
-        $categoryName = $categories->where('id', $categoryId)->pluck('category_name')->get(0);
-        return view('news.news_category', ['news' => $news, 'categories' => $categories])->with('categoryName', $categoryName);
+        $categoryName = $categories->where('id', $categoryId)
+            ->pluck('category_name')
+            ->get(0);
+        return view(
+            'news.news_category',
+            [
+                'news' => $news,
+                'categories' => $categories
+            ]
+        )->with('categoryName', $categoryName);
     }
 
     public function newsItem(News $news)
     {
-        return view('news.news_item', ['news' => $news]);
+        return view(
+            'news.news_item',
+            ['news' => $news]
+        );
     }
 }

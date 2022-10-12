@@ -27,14 +27,14 @@ Route::name('admin.')
         Route::get('/', [IndexAdminController::class, 'index'])->name('index');
         Route::match(['get', 'post'], '/create', [IndexAdminController::class, 'create'])->name('create');
         Route::match(['get', 'post'], '/save', [IndexAdminController::class, 'saveNews'])->name('save');
-        Route::get('/edit', [IndexAdminController::class, 'editNews'])->name('edit');
+        Route::get('/edit/{categoryId}', [IndexAdminController::class, 'editNews'])->name('edit');
         Route::match(['get', 'post'], '/category/{category}', [IndexAdminController::class, 'editCategory'])->name('category');
         Route::match(['get', 'post'], '/message/{news}', [IndexAdminController::class, 'editMessage'])->name('message');
         Route::name('delete.')
             ->prefix('delete')
             ->group(function () {
-                Route::match(['get', 'post'], '/message/{news}', [IndexAdminController::class, 'deleteMessage'])->name('message');
-                Route::match(['get', 'post'], '/category/{category}', [IndexAdminController::class, 'deleteCategory'])->name('category');
+                Route::delete('/message/{id}', [IndexAdminController::class, 'deleteMessage'])->name('message');
+                Route::delete('/category/{id}', [IndexAdminController::class, 'deleteCategory'])->name('category');
             });
     });
 
