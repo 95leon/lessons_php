@@ -14,7 +14,7 @@
                 <div class="card-header display-6 text-muted">{{ __('Добавить новость') }}</div>
                 <div class="card-body">
 
-                    <form action="{{ route('admin.create') }}" method="post">
+                    <form action="{{ route('admin.create') }}" method="post" onsubmit="return confirm('Добавить новость?')">
                         @csrf
                         <div class="form-group">
                             <label for="newsCategory">Категория новости</label>
@@ -63,7 +63,7 @@
                 <div class="card-header display-6 text-muted">{{ __('Добавить категорию новостей') }}</div>
                 <div class="card-body">
 
-                    <form action="{{ route('admin.create') }}" method="post">
+                    <form action="{{ route('admin.create') }}" method="post" onsubmit="return confirm('Добавить категорию?')">
                         @csrf
 
                         <div class="form-group">

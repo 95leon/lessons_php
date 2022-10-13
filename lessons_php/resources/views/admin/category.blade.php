@@ -13,7 +13,7 @@
             <div class="card align-items-center">
                 <div class="card-header display-6 text-muted">{{ __('Редактировать категорию новостей') }}</div>
                 <div class="card-body">
-                    <form action="{{ route('admin.category', $category->id) }}" method="post">
+                    <form action="{{ route('admin.category', $category->id) }}" method="post" onsubmit="return confirm('Изменить категорию?')">
                         @csrf
                         <div class="form-group">
                             <label for="categoryName">Заголовок категории</label>
@@ -24,7 +24,7 @@
                             <input type="submit" class="btn btn-outline-primary mt-2" value="Изменить">
                         </div>
                     </form><br>
-                    <form action="{{ route('admin.delete.category', $category->id) }}" method="post">
+                    <form action="{{ route('admin.delete.category', $category->id) }}" method="post" onsubmit="return confirm('Удалить категорию?')">
                         @csrf
                         @method('delete')
                         <input type="hidden" name="id" value="{{ $category->id }}">

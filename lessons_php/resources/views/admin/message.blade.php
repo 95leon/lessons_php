@@ -14,7 +14,7 @@
                 <div class="card-header display-6 text-muted">{{ __('Редактировать новость') }}</div>
                 <div class="card-body">
 
-                    <form action="{{ route('admin.message', $news->id) }}" method="post">
+                    <form action="{{ route('admin.message', $news->id) }}" method="post" onsubmit="return confirm('Изменить статью?')">
                         @csrf
                         <div class="form-group">
                             <label for="newsCategory">Категория новости</label>
@@ -47,7 +47,7 @@
                             <input type="submit" class="btn btn-outline-primary" value="Изменить">
                         </div>
                     </form><br>
-                    <form action="{{ route('admin.delete.message', $news->id) }}" method="post">
+                    <form action="{{ route('admin.delete.message', $news->id) }}" method="post" onsubmit="return confirm('Удалить статью?')">
                         @csrf
                         @method('delete')
                         <input type="hidden" name="id" value="{{ $news->id }}">
