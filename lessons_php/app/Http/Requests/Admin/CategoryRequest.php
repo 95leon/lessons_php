@@ -24,7 +24,14 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category_name' => 'filled|alpha_dash|min:3|max:20'
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'category_name' => 'заголовок категории'
         ];
     }
 }

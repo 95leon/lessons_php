@@ -24,7 +24,19 @@ class MessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category_id' => 'filled|not_in:0|integer',
+            'title' => 'filled|string|min:3|max:50',
+            'text' => 'filled|string|min:5|max: 500',
+            'is_private' => 'sometimes|accepted',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'category_id' => 'категории новостей',
+            'title' => 'заголовок новости',
+            'text' => 'текст новости',
         ];
     }
 }

@@ -1,13 +1,13 @@
 <li>
-    <a class="nav-link {{ request()->routeIs('index')?' active':'' }}" href="{{ route('index') }}">Главная</a>&nbsp
+    <a class="nav-link {{ request()->routeIs('index')?' active':'' }}" href="{{ route('index') }}">Главная</a>
 </li>
 
 <li>
-    <a class="nav-link {{ request()->routeIs('admin.index')?' active':'' }}" href="{{ route('admin.index') }}">Авторизация</a>&nbsp
+    <a class="nav-link {{ request()->routeIs('admin.index')?' active':'' }}" href="{{ route('admin.index') }}">Авторизация</a>
 </li>
 
 <li>
-    <a class="nav-link {{ request()->routeIs('admin.create')?' active':'' }}" href="{{ route('admin.create') }}">Добавление</a>&nbsp
+    <a class="nav-link {{ request()->routeIs('admin.create')?' active':'' }}" href="{{ route('admin.create') }}">Добавление</a>
 </li>
 
 <li>
