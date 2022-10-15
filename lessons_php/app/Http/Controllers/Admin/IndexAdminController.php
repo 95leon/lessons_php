@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Models\Category;
+use App\Http\Requests\Admin\CreateRequest;
+use App\Http\Requests\Admin\MessageRequest;
+use App\Http\Requests\Admin\CategoryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,23 +18,25 @@ class IndexAdminController extends Controller
         return view('admin.index');
     }
 
-    public function create(Request $request, News $news, Category $category)
-    {
+    public function create(
+        CreateRequest $request,
+        News $news,
+        Category $category,
+    ) {
         if ($request->isMethod('post')) {
-            if ($request->input('category_name')) {
-                $category->fill($request->all());
+            $request = $request->validated();
+            if (isset($request['category_name'])) {
+                $category->fill($request);
                 $category->save();
-                return view('admin.create', ['categories' => $category->all()]);
+                return view('admin.create', ['categories' => $category->all()])->with('success', __('messages.admin.category_created'));
             }
-            if (!$request['is_private']) {
-                $request['is_private'] = 0;
-            } else {
+            if (isset($request['is_private'])) {
                 $request['is_private'] = 1;
+            } else {
+                $request['is_private'] = 0;
             }
-
-            $news->fill($request->all());
+            $news->fill($request);
             $news->save();
-            $request->flash();
             return redirect()->route(
                 'news.category.message',
                 [DB::getPdo()->lastInsertId()]
@@ -70,10 +75,13 @@ class IndexAdminController extends Controller
         )->with('categoryName', $categoryName);
     }
 
-    public function editCategory(Category $category, Request $request)
-    {
+    public function editCategory(
+        Category $category,
+        CategoryRequest $request
+    ) {
         if ($request->isMethod('post')) {
-            $category->fill($request->all());
+            $request = $request->validated();
+            $category->fill($request);
             $category->save();
         }
         return view(
@@ -82,15 +90,18 @@ class IndexAdminController extends Controller
         );
     }
 
-    public function editMessage(News $news, Request $request)
-    {
+    public function editMessage(
+        News $news,
+        MessageRequest $request
+    ) {
         if ($request->isMethod('post')) {
-            if (!$request['is_private']) {
-                $request['is_private'] = 0;
-            } else {
+            $request = $request->validated();
+            if (isset($request['is_private'])) {
                 $request['is_private'] = 1;
+            } else {
+                $request['is_private'] = 0;
             }
-            $news->fill($request->all());
+            $news->fill($request);
             $news->save();
         }
         return view(

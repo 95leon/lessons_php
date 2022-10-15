@@ -14,7 +14,9 @@ class IndexNewsController extends Controller
         return view('news.index', ['news' => News::paginate(10)]);
     }
 
-    public function newsCategory($categoryId, Category $categories)
+    public function newsCategory(
+        $categoryId, 
+        Category $categories)
     {
         $news = Category::findOrFail($categoryId)
             ->news()
