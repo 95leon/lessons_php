@@ -25,7 +25,10 @@ Route::name('admin.')
     ->prefix('admin')
     ->group(function () {
         Route::get('/', [IndexAdminController::class, 'index'])->name('index');
-        Route::match(['get', 'post'], '/create', [IndexAdminController::class, 'create'])->name('create');
+        Route::get('/create', [IndexAdminController::class, 'create'])->name('create');
+        Route::match(['get', 'post'], '/create/news', [IndexAdminController::class, 'createNews'])->name('create.news');
+        Route::match(['get', 'post'], '/create/category', [IndexAdminController::class, 'createCategory'])->name('create.category');
+
         Route::match(['get', 'post'], '/save', [IndexAdminController::class, 'saveNews'])->name('save');
         Route::get('/edit/{categoryId}', [IndexAdminController::class, 'editNews'])->name('edit');
         Route::match(['get', 'post'], '/category/{category}', [IndexAdminController::class, 'editCategory'])->name('category');

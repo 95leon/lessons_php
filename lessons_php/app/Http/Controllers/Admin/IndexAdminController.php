@@ -18,18 +18,21 @@ class IndexAdminController extends Controller
         return view('admin.index');
     }
 
-    public function create(
+    public function create(Category $category)
+    {
+        return view(
+            'admin.create',
+            ['categories' => $category->all()]
+        );
+    }
+
+    public function createNews(
         CreateRequest $request,
         News $news,
         Category $category,
     ) {
         if ($request->isMethod('post')) {
             $request = $request->validated();
-            if (isset($request['category_name'])) {
-                $category->fill($request);
-                $category->save();
-                return view('admin.create', ['categories' => $category->all()])->with('success', __('messages.admin.category_created'));
-            }
             if (isset($request['is_private'])) {
                 $request['is_private'] = 1;
             } else {
@@ -39,7 +42,7 @@ class IndexAdminController extends Controller
             $news->save();
             return redirect()->route(
                 'news.category.message',
-                [DB::getPdo()->lastInsertId()]
+                DB::getPdo()->lastInsertId()
             );
         }
         return view(
@@ -47,6 +50,25 @@ class IndexAdminController extends Controller
             ['categories' => $category->all()]
         );
     }
+
+    public function createCategory(
+        CreateRequest $request,
+        Category $category,
+    ) {
+        if ($request->isMethod('post')) {
+            $request = $request->validated();
+            if (isset($request['category_name'])) {
+                $category->fill($request);
+                $category->save();
+                return view('admin.create', ['categories' => $category->all()]);
+            }
+        }
+        return view(
+            'admin.create',
+            ['categories' => $category->all()]
+        );
+    }
+
 
     public function saveNews()
     {

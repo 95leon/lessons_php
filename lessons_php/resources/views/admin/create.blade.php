@@ -13,7 +13,7 @@
             <div class="card align-items-center">
                 <div class="card-header display-6 text-muted">{{ __('Добавить новость') }}</div>
                 <div class="card-body">
-                    <form action="{{ route('admin.create') }}" method="post"
+                    <form action="{{ route('admin.create.news') }}" method="post"
                         onsubmit="return confirm('Добавить новость?')">
                         @csrf
                         <div class="form-group">
@@ -65,7 +65,7 @@
                 <div class="card-header display-6 text-muted">{{ __('Добавить категорию новостей') }}</div>
                 <div class="card-body">
 
-                    <form action="{{ route('admin.create') }}" method="post"
+                    <form action="{{ route('admin.create.category') }}" method="post"
                         onsubmit="return confirm('Добавить категорию?')">
                         @csrf
                         <div class="form-group">
