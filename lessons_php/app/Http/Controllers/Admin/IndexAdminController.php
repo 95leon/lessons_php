@@ -8,14 +8,21 @@ use App\Models\Category;
 use App\Http\Requests\Admin\CreateRequest;
 use App\Http\Requests\Admin\MessageRequest;
 use App\Http\Requests\Admin\CategoryRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class IndexAdminController extends Controller
 {
-    public function index()
+    public function index(User $user)
     {
-        return view('admin.index');
+        //dd($user->all());
+        return view('admin.index', ['users' => $user->all()]);
+    }
+
+    public function editUser()
+    {
+        
     }
 
     public function create(Category $category)

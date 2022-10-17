@@ -19,8 +19,9 @@ use App\Http\Controllers\ExportController;
 
 Route::get('/', [IndexHomeController::class, 'index'])->name('index');
 Route::view('/about', 'about')->name('about');
-Route::view('/registration', 'registration')->name('registration');
 Route::view('/logon', 'logon')->name('logon');
+Route::view('/registration', 'registration')->name('registration');
+Route:: match(['get', 'post'], '/add_user', [IndexHomeController::class, 'addUser'])->name('add_user');
 Route::match(['get', 'post'], '/users/export', [ExportController::class, 'exportNews'])->name('users.export');
 
 Route::name('admin.')
