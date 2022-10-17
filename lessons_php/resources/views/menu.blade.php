@@ -7,7 +7,11 @@
 </li>
 
 <li>
-    <a class="nav-link {{ request()->routeIs('admin.index')?' active':'' }}" href="{{ route('admin.index') }}">Авторизация</a>&nbsp
+    <a class="nav-link {{ request()->routeIs('logon')?' active':'' }}" href="{{ route('logon') }}">Авторизация</a>&nbsp
+</li>
+
+<li>
+    <a class="nav-link {{ request()->routeIs('registration')?' active':'' }}" href="{{ route('registration') }}">Регистрация</a>&nbsp
 </li>
 
 <li>

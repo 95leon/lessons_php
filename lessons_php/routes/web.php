@@ -19,7 +19,9 @@ use App\Http\Controllers\ExportController;
 
 Route::get('/', [IndexHomeController::class, 'index'])->name('index');
 Route::view('/about', 'about')->name('about');
-Route::match(['get', 'post'], '/users/export/', [ExportController::class, 'exportNews'])->name('users.export');
+Route::view('/registration', 'registration')->name('registration');
+Route::view('/logon', 'logon')->name('logon');
+Route::match(['get', 'post'], '/users/export', [ExportController::class, 'exportNews'])->name('users.export');
 
 Route::name('admin.')
     ->prefix('admin')
@@ -28,7 +30,6 @@ Route::name('admin.')
         Route::get('/create', [IndexAdminController::class, 'create'])->name('create');
         Route::match(['get', 'post'], '/create/news', [IndexAdminController::class, 'createNews'])->name('create.news');
         Route::match(['get', 'post'], '/create/category', [IndexAdminController::class, 'createCategory'])->name('create.category');
-
         Route::match(['get', 'post'], '/save', [IndexAdminController::class, 'saveNews'])->name('save');
         Route::get('/edit/{categoryId}', [IndexAdminController::class, 'editNews'])->name('edit');
         Route::match(['get', 'post'], '/category/{category}', [IndexAdminController::class, 'editCategory'])->name('category');
