@@ -9,7 +9,3 @@
 <li>
     <a class="nav-link {{ request()->routeIs('news.category')?' active':'' }}" href="{{ route('news.category', 1) }}" class="text-decoration-none">Новости по категориям</a>
 </li>
-
-<li>
-    <a class="nav-link {{ request()->routeIs('admin.index')?' active':'' }}" href="{{ route('admin.index') }}">Авторизация</a>
-</li>

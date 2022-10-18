@@ -3,7 +3,7 @@
 </li>
 
 <li>
-    <a class="nav-link {{ request()->routeIs('admin.index')?' active':'' }}" href="{{ route('admin.index') }}">Редактирование пользователей</a>
+    <a class="nav-link {{ request()->routeIs('admin.index')?' active':'' }}" href="{{ route('admin.index') }}">Пользователь</a>
 </li>
 
 <li>

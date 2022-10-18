@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class RegistrationRequest extends FormRequest
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class RegistrationRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -24,10 +25,11 @@ class RegistrationRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|alpha|min:3|max:20',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|alpha_dash|confirmed',
-            'password_confirmation' => 'required|alpha_dash|'
+            'name' => 'required|alpha|min:3|max:255',
+            'email' => 'required|email|max:255',
+            'role' => 'required|alpha',
+            'password' => 'required',
+            'password_new' => 'required|alpha_dash|min:8',
         ];
     }
 
@@ -36,8 +38,9 @@ class RegistrationRequest extends FormRequest
         return [
             'name' => 'имя пользователя',
             'email' => 'электронная почта',
-            'password' => 'пароль',
-            'password_confirmation' => 'подтверждение пароля'
+            'role' => 'права пользователя',
+            'password' => 'старый пароль',
+            'password_new' => 'новый пароль',
         ];
     }
 }

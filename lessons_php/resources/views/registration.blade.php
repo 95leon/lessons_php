@@ -11,7 +11,7 @@
                 <div class="card-header">{{ __('Регистрация') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('add_user') }}">
+                    <form method="POST" action={{ route('add.user') }} onsubmit="return confirm('Вы подтверждаете регистрацию?')">
                         @csrf
 
                         <div class="row mb-3">

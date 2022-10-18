@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegistrationRequest;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class IndexHomeController extends Controller
 {
@@ -19,9 +20,14 @@ class IndexHomeController extends Controller
     ) {
         if ($request->isMethod('post')) {
             $request = $request->validated();
-            $user->fill($request);
+
+            $user->fill([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password'])
+            ]);
             $user->save();
-            return redirect()->route('logon');
+            return redirect()->route('index');
         }
         return view('registration');
     }
