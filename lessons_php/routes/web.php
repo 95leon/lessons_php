@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\IndexAdminController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\IndexHomeController;
 use App\Http\Controllers\News\IndexNewsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExportController;
 
@@ -19,16 +21,19 @@ use App\Http\Controllers\ExportController;
 
 Route::get('/', [IndexHomeController::class, 'index'])->name('index');
 Route::view('/about', 'about')->name('about');
-Route::match(['get', 'post'], '/users/export/', [ExportController::class, 'exportNews'])->name('users.export');
+Route::view('/registration', 'registration')->name('registration');
+Route:: match(['get', 'post'], '/add/user', [IndexHomeController::class, 'addUser'])->name('add.user');
+Route::match(['get', 'post'], '/users/export', [ExportController::class, 'exportNews'])->name('users.export');
 
 Route::name('admin.')
     ->prefix('admin')
+    ->middleware(['auth', 'role'])
     ->group(function () {
         Route::get('/', [IndexAdminController::class, 'index'])->name('index');
+        Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('profile');
         Route::get('/create', [IndexAdminController::class, 'create'])->name('create');
         Route::match(['get', 'post'], '/create/news', [IndexAdminController::class, 'createNews'])->name('create.news');
         Route::match(['get', 'post'], '/create/category', [IndexAdminController::class, 'createCategory'])->name('create.category');
-
         Route::match(['get', 'post'], '/save', [IndexAdminController::class, 'saveNews'])->name('save');
         Route::get('/edit/{categoryId}', [IndexAdminController::class, 'editNews'])->name('edit');
         Route::match(['get', 'post'], '/category/{category}', [IndexAdminController::class, 'editCategory'])->name('category');
@@ -52,6 +57,8 @@ Route::name('news.')
             });
     });
 
-Auth::routes();
-
+//Auth::routes();
+Route::get('/login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login');
+Route::post('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

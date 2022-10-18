@@ -8,14 +8,18 @@ use App\Models\Category;
 use App\Http\Requests\Admin\CreateRequest;
 use App\Http\Requests\Admin\MessageRequest;
 use App\Http\Requests\Admin\CategoryRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class IndexAdminController extends Controller
 {
     public function index()
     {
-        return view('admin.index');
+        $user = Auth::user();
+        //dd($user['name']);
+        return view('admin.index', ['user' => $user]);
     }
 
     public function create(Category $category)

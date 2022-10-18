@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Добавление новости')
+@section('title', 'Редактирование новости')
 
 @section('menu')
 @include('admin.menu')
