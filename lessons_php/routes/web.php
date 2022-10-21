@@ -47,11 +47,7 @@ Route::controller(IndexAdminController::class)
         Route::match(['get', 'post'], '/save', 'saveNews')->name('save');
         Route::match(['get', 'post'], '/category/{category}', 'editCategory')->name('category');
         Route::match(['get', 'post'], '/message/{news}', 'editMessage')->name('message');
-        Route::controller(ParserController::class)
-            ->group(function () {
-                Route::get('/parse/', 'index')->name('parse');
-                Route::match(['get', 'post'], '/parse/save', 'saveParseNews')->name('parse.save');
-            });
+        Route::match(['get', 'post'], '/parse/{id_source?}', [ParserController::class, 'index'])->name('parse');
         Route::name('delete.')
             ->prefix('delete')
             ->group(function () {
