@@ -27,7 +27,7 @@ class ProfileRequest extends FormRequest
         return [
             'name' => 'required|alpha|min:3|max:255',
             'email' => 'required|email|max:255',
-            'role' => 'required|alpha',
+            'role' => 'filled|alpha',
             'password' => 'required',
             'password_new' => 'required|alpha_dash|min:8',
         ];

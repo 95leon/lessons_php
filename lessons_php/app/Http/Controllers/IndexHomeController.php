@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\RegistrationRequest;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class IndexHomeController extends Controller
@@ -30,5 +32,11 @@ class IndexHomeController extends Controller
             return redirect()->route('index');
         }
         return view('registration');
+    }
+
+    public function account()
+    {
+        $user = Auth::user();
+        return view('account', ['user' => $user]);
     }
 }

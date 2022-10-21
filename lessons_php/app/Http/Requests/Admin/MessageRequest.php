@@ -25,7 +25,7 @@ class MessageRequest extends FormRequest
     {
         return [
             'category_id' => 'filled|not_in:0|integer',
-            'title' => 'filled|string|min:3|max:50',
+            'title' => 'filled|string|min:3|max:250',
             'text' => 'filled|string|min:5|max: 500',
             'is_private' => 'sometimes|accepted',
         ];

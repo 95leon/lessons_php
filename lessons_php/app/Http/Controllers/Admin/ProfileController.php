@@ -14,15 +14,22 @@ class ProfileController extends Controller
         $request = $request->validated();
         $user = Auth::user();
         if (Hash::check($request['password'], $user->getAuthPassword())) {
-            $user->fill([
-                'name' => $request['name'],
-                'email' => $request['email'],
-                'role' => $request['role'],
-                'password' => Hash::make($request['password_new'])
-            ]);
+            if (isset($request['role'])) {
+                $user->fill([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'role' => $request['role'],
+                    'password' => Hash::make($request['password_new'])
+                ]);
+            } else {
+                $user->fill([
+                    'name' => $request['name'],
+                    'email' => $request['email'],
+                    'password' => Hash::make($request['password_new'])
+                ]);
+            }
             $user->save();
         }
-
-        return redirect()->route('admin.index');
+        return redirect()->back();
     }
 }

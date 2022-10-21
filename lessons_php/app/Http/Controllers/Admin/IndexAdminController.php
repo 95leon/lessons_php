@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ParseSaveRequest;
 use App\Models\News;
 use App\Models\Category;
 use App\Http\Requests\Admin\CreateRequest;
@@ -12,21 +13,24 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\Console\Input\Input;
 
 class IndexAdminController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
-        //dd($user['name']);
         return view('admin.index', ['user' => $user]);
     }
 
-    public function create(Category $category)
+    public function create(Category $category, Request $request)
     {
         return view(
             'admin.create',
-            ['categories' => $category->all()]
+            [
+                'categories' => $category->all(),
+                'parse' => $request->input()
+            ]
         );
     }
 
@@ -37,6 +41,11 @@ class IndexAdminController extends Controller
     ) {
         if ($request->isMethod('post')) {
             $request = $request->validated();
+            if ($request['category_id'] == 0) {
+                $category->fill($request);
+                $category->save();
+                $request['category_id'] = $category->id;
+            }
             if (isset($request['is_private'])) {
                 $request['is_private'] = 1;
             } else {
@@ -46,7 +55,7 @@ class IndexAdminController extends Controller
             $news->save();
             return redirect()->route(
                 'news.category.message',
-                DB::getPdo()->lastInsertId()
+                $news->id
             );
         }
         return view(
@@ -54,25 +63,6 @@ class IndexAdminController extends Controller
             ['categories' => $category->all()]
         );
     }
-
-    public function createCategory(
-        CreateRequest $request,
-        Category $category,
-    ) {
-        if ($request->isMethod('post')) {
-            $request = $request->validated();
-            if (isset($request['category_name'])) {
-                $category->fill($request);
-                $category->save();
-                return view('admin.create', ['categories' => $category->all()]);
-            }
-        }
-        return view(
-            'admin.create',
-            ['categories' => $category->all()]
-        );
-    }
-
 
     public function saveNews()
     {

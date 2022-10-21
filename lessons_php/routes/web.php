@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\Admin\IndexAdminController;
+use App\Http\Controllers\Admin\ParserController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\IndexHomeController;
 use App\Http\Controllers\News\IndexNewsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,41 +21,54 @@ use App\Http\Controllers\ExportController;
 |
 */
 
-Route::get('/', [IndexHomeController::class, 'index'])->name('index');
 Route::view('/about', 'about')->name('about');
 Route::view('/registration', 'registration')->name('registration');
-Route:: match(['get', 'post'], '/add/user', [IndexHomeController::class, 'addUser'])->name('add.user');
+Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('profile');
 Route::match(['get', 'post'], '/users/export', [ExportController::class, 'exportNews'])->name('users.export');
+Route::get('/auth/vk', [LoginController::class, 'loginVK'])->name('vklogin');
+Route::get('/auth/vk/response', [LoginController::class, 'responseVK'])->name('vkresponse');
 
-Route::name('admin.')
+Route::controller(IndexHomeController::class)
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/account', 'account')->name('account');
+        Route::match(['get', 'post'], '/add/user', 'addUser')->name('add.user');
+    });
+
+Route::controller(IndexAdminController::class)
+    ->name('admin.')
     ->prefix('admin')
     ->middleware(['auth', 'role'])
     ->group(function () {
-        Route::get('/', [IndexAdminController::class, 'index'])->name('index');
-        Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('profile');
-        Route::get('/create', [IndexAdminController::class, 'create'])->name('create');
-        Route::match(['get', 'post'], '/create/news', [IndexAdminController::class, 'createNews'])->name('create.news');
-        Route::match(['get', 'post'], '/create/category', [IndexAdminController::class, 'createCategory'])->name('create.category');
-        Route::match(['get', 'post'], '/save', [IndexAdminController::class, 'saveNews'])->name('save');
-        Route::get('/edit/{categoryId}', [IndexAdminController::class, 'editNews'])->name('edit');
-        Route::match(['get', 'post'], '/category/{category}', [IndexAdminController::class, 'editCategory'])->name('category');
-        Route::match(['get', 'post'], '/message/{news}', [IndexAdminController::class, 'editMessage'])->name('message');
+        Route::get('/', 'index')->name('index');
+        Route::get('/edit/{categoryId}', 'editNews')->name('edit');
+        Route::match(['get', 'post'], '/create', 'create')->name('create');
+        Route::match(['get', 'post'], '/create/news', 'createNews')->name('create.news');
+        Route::match(['get', 'post'], '/save', 'saveNews')->name('save');
+        Route::match(['get', 'post'], '/category/{category}', 'editCategory')->name('category');
+        Route::match(['get', 'post'], '/message/{news}', 'editMessage')->name('message');
+        Route::controller(ParserController::class)
+            ->group(function () {
+                Route::get('/parse/', 'index')->name('parse');
+                Route::match(['get', 'post'], '/parse/save', 'saveParseNews')->name('parse.save');
+            });
         Route::name('delete.')
             ->prefix('delete')
             ->group(function () {
-                Route::delete('/message/{id}', [IndexAdminController::class, 'deleteMessage'])->name('message');
-                Route::delete('/category/{id}', [IndexAdminController::class, 'deleteCategory'])->name('category');
+                Route::delete('/message/{id}', 'deleteMessage')->name('message');
+                Route::delete('/category/{id}', 'deleteCategory')->name('category');
             });
     });
 
-Route::name('news.')
+Route::controller(IndexNewsController::class)
+    ->name('news.')
     ->prefix('news')
     ->group(function () {
-        Route::get('/', [IndexNewsController::class, 'index'])->name('index');
+        Route::get('/', 'index')->name('index');
         Route::prefix('category')
             ->group(function () {
-                Route::get('/{categoryId}', [IndexNewsController::class, 'newsCategory'])->name('category');
-                Route::get('/message/{news}', [IndexNewsController::class, 'newsItem'])->name('category.message');
+                Route::get('/{categoryId}', 'newsCategory')->name('category');
+                Route::get('/message/{news}', 'newsItem')->name('category.message');
             });
     });
 

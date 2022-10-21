@@ -24,11 +24,11 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'category_id' => 'filled|not_in:0|integer',
-            'title' => 'filled|alpha_dash|min:3|max:50',
-            'text' => 'filled|alpha_dash|min:5|max: 500',
+            'category_id' => 'required|nullable|integer',
+            'title' => 'required|string|min:3|max:250',
+            'text' => 'required|string|min:5|max: 500',
             'is_private' => 'sometimes|accepted',
-            'category_name' => 'filled|alpha_dash|min:3|max:20'
+            'category_name' => 'nullable|string|min:3|max:20|required_if:category_id,0,'
         ];
     }
 
@@ -38,7 +38,7 @@ class CreateRequest extends FormRequest
             'category_id' => 'категории новостей',
             'title' => 'заголовок новости',
             'text' => 'текст новости',
-            'category_name' => 'заголовок категории'
+            'category_name' => 'создать категорию'
         ];
     }
 }
