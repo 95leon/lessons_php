@@ -14,11 +14,11 @@
                 <div class="card-body">
                     <a href="#" onclick="history.back();return false;" class="fs-5">Назад</a>
                     <div class="form-group">
-                        <form class="form-control" id="parse_link" method="post" action="{{ route('admin.parse') }}">
+                        <form class="form-control" id="parse_link" method="post" action="{{ route('admin.parse', 1) }}">
                             @csrf
-                            <label for="parse_link">Введите ссылку на новостной ресурс XML</label>
+                            <label for="parse_link">Введите ссылку на новостной ресурс</label>
                             <input form="parse_link" type="text" name="parse_link" class="form-control">
-                            <input form="parse_link" type="submit" class="btn btn-outline-primary mt-1"
+                            <input form="parse_link" type="submit" class="btn btn-outline-primary mt-2"
                                 value="Парсить ссылку">
                         </form>
                     </div>

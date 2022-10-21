@@ -26,4 +26,23 @@ class LoginController extends Controller
         Auth::login($userInSystem);
         return redirect()->back();
     }
+
+    public function loginYandex()
+    {
+        return Socialite::with('yandex')->redirect();
+    }
+
+    public function responseYandex(UserRepository $userRepository)
+    {
+        if (Auth::id()) {
+            return redirect()->route('home');
+        }
+
+        $user = Socialite::driver('yandex')->user();
+        session(['soc_token' => $user->token]);
+        $userInSystem = $userRepository->getUserBySocId($user, 'yandex');
+        Auth::login($userInSystem);
+        return redirect()->back();
+    }
+
 }

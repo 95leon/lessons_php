@@ -26,7 +26,9 @@ Route::view('/registration', 'registration')->name('registration');
 Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('profile');
 Route::match(['get', 'post'], '/users/export', [ExportController::class, 'exportNews'])->name('users.export');
 Route::get('/auth/vk', [LoginController::class, 'loginVK'])->name('vklogin');
+Route::get('/auth/yandex', [LoginController::class, 'loginYandex'])->name('yandexlogin');
 Route::get('/auth/vk/response', [LoginController::class, 'responseVK'])->name('vkresponse');
+Route::get('/auth/yandex/response', [LoginController::class, 'responseYandex'])->name('yandexresponse');
 
 Route::controller(IndexHomeController::class)
     ->group(function () {

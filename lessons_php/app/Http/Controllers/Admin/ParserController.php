@@ -12,7 +12,7 @@ class ParserController extends Controller
     {
         if ($request->isMethod('post')) {
             $validate = $request->validate([
-                'parse_link' => 'required|active_url'
+                'parse_link' => 'required|string|active_url'
             ]);
             $xml = XmlParser::load($validate['parse_link']);
         } else {
