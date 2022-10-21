@@ -1,18 +1,14 @@
 @extends('layouts.main')
-
-@section('title', 'Пользователи')
-
+@section('title', 'Регистрация')
 @section('menu')
-@include('admin.menu')
+@include('menu')
 @endsection
-
 @section('content')
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Редактировать профиль') }}</div>
+                <div class="card-header">{{ __('Редактировать аккаунт') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action={{ route('profile') }} onsubmit="return confirm('Изменить данные?')">
@@ -42,25 +38,6 @@
                                     name="email" value="{{ $user['email'] }}" required autocomplete="email">
 
                                 @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Права')
-                                }}</label>
-
-                            <div class="col-md-6">
-
-                                    <select name="role" class="form-control">
-                                        <option {{ $user['role'] == 'user' ? 'selected' : '' }} value="user">пользователь</option>
-                                        <option {{ $user['role'] == 'admin' ? 'selected' : '' }} value="admin">администратор</option>
-                                    </select>
-
-                                @error('role')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

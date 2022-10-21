@@ -43,7 +43,12 @@
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Войти') }}</a>
                         </li>
                         @endif
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('vklogin') }}">{{ __('Войти через ВК') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('yandexlogin') }}">{{ __('Войти через Yandex') }}</a>
+                        </li>
                         @if (Route::has('register'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Зарегистрироваться') }}</a>

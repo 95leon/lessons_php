@@ -9,7 +9,7 @@
 @section('content')
 {{ $news->links() }}
 @forelse ($news as $item)
-@if ($item->is_private === 0)
+@if ($item->is_private === 0 || auth()->user())
 <a href="{{ route('news.category.message', $item->id) }}" class="fs-5">{{ $item->title }} </a><br>
 <hr>
 @else

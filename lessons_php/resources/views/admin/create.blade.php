@@ -30,15 +30,21 @@
                             @error('category_id') <span style="color: red">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group">
+                            <label for="categoryName">Создать категорию</label>
+                            <textarea class="form-control" id="categoryName" cols="120" rows="1" name="category_name"
+                                value="{{ isset($parse['category_name']) ?  $parse['category_name'] : old('category_name') }}"></textarea>
+                            @error('category_name') <span style="color: red">{{ $message }}</span> @enderror
+                        </div>
+                        <div class="form-group">
                             <label for="newsTitle">Заголовок новости</label>
                             <textarea required class="form-control" id="newsTitle" cols="120" rows="2" name="title"
-                                value="{{ old('title') }}"></textarea>
+                                value="{{ isset($parse['mark']) ? $parse['title'] : old('title') }}"></textarea>
                             @error('title') <span style="color: red">{{ $message }}</span> @enderror
                         </div>
                         <div class=" form-group">
                             <label for="newsTitle">Текст новости</label>
                             <textarea required class="form-control" id="newsText" cols="120" rows="6" name="text"
-                                value="{{ old('text') }}"></textarea>
+                                value="{{ isset($parse['text']) ? $parse['text'] : old('text') }}"></textarea>
                             @error('text') <span style="color: red">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-check">
@@ -50,33 +56,6 @@
 
                         <div class="form-group">
                             <input type="submit" class="btn btn-outline-primary" value="Добавить новость">
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container mt-3">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card align-items-center">
-                <div class="card-header display-6 text-muted">{{ __('Добавить категорию новостей') }}</div>
-                <div class="card-body">
-
-                    <form action="{{ route('admin.create.category') }}" method="post"
-                        onsubmit="return confirm('Добавить категорию?')">
-                        @csrf
-                        <div class="form-group">
-                            <label for="categoryName">Заголовок категории</label>
-                            <textarea required class="form-control" id="categoryName" cols="120" rows="1"
-                                name="category_name"></textarea>
-                            @error('category_name') <span style="color: red">{{ $message }}</span> @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-outline-primary mt-2" value="Добавить категорию">
                         </div>
                     </form>
 
