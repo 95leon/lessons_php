@@ -42,15 +42,23 @@ class IndexAdminController extends Controller
         if ($request->isMethod('post')) {
             $request = $request->validated();
             if ($request['category_id'] == 0) {
-                $category->fill($request);
-                $category->save();
-                $request['category_id'] = $category->id;
+                $duble_category = $category->firstWhere('category_name', [$request['category_name']]);
+
+                if (!(bool) $duble_category) {
+                    $category->fill($request);
+                    $category->save();
+                    $request['category_id'] = $category->id;
+                } else {
+                    $request['category_id'] = $duble_category->id;
+                }
             }
+
             if (isset($request['is_private'])) {
                 $request['is_private'] = 1;
             } else {
                 $request['is_private'] = 0;
             }
+
             $news->fill($request);
             $news->save();
             return redirect()->route(
