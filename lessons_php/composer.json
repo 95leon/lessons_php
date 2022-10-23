@@ -8,6 +8,7 @@
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
+        "laravel/helpers": "^1.5",
         "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.5",
         "laravel/tinker": "^2.7",
@@ -15,7 +16,8 @@
         "maatwebsite/excel": "^3.1",
         "orchestra/parser": "^7.0",
         "socialiteproviders/vkontakte": "^5.0",
-        "socialiteproviders/yandex": "^4.1"
+        "socialiteproviders/yandex": "^4.1",
+        "unisharp/laravel-filemanager": "^1.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

@@ -17,6 +17,7 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.1/classic/ckeditor.js"></script>
 </head>
 <body>
     <div id="app">
@@ -76,12 +77,9 @@
                 </div>
             </div>
         </nav>
-
-        <main class="container-xxl mt-4">
-            @yield('header')
-            @yield('content')
-            @yield('footer')
-        </main>
     </div>
+        @yield('header')
+        @yield('content')
+        @yield('footer')
 </body>
 </html>
