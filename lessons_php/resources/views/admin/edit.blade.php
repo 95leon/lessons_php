@@ -15,7 +15,7 @@
                 <a href="{{ route('admin.edit', $item->id) }}" class="fs-3 text-decoration-none link-secondary">{{
                     $item->category_name }}</a><br>
                 <a href="{{ route('admin.category', $item->id) }}" class="fs-5">редактировать</a>&nbsp
-                <br>
+                <br><hr>
                 @endforeach
             </div>
         </div>

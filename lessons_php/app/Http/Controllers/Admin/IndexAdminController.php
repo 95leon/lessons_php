@@ -42,14 +42,14 @@ class IndexAdminController extends Controller
         if ($request->isMethod('post')) {
             $request = $request->validated();
             if ($request['category_id'] == 0) {
-                $duble_category = $category->firstWhere('category_name', [$request['category_name']]);
+                $double_category = $category->firstWhere('category_name', [$request['category_name']]);
 
-                if (!(bool) $duble_category) {
+                if (!(bool) $double_category) {
                     $category->fill($request);
                     $category->save();
                     $request['category_id'] = $category->id;
                 } else {
-                    $request['category_id'] = $duble_category->id;
+                    $request['category_id'] = $double_category->id;
                 }
             }
 
@@ -85,7 +85,7 @@ class IndexAdminController extends Controller
     {
         $news = Category::findOrFail($categoryId)
             ->news()
-            ->paginate(6);
+            ->paginate(15);
         $categories = Category::all();
         $categoryName = $categories->where('id', $categoryId)
             ->pluck('category_name')

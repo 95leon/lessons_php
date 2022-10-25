@@ -11,16 +11,16 @@ class IndexNewsController extends Controller
 {
     public function index()
     {
-        return view('news.index', ['news' => News::paginate(10)]);
+        return view('news.index', ['news' => News::paginate(15)]);
     }
 
     public function newsCategory(
-        $categoryId, 
+        $categoryId,
         Category $categories)
     {
         $news = Category::findOrFail($categoryId)
             ->news()
-            ->paginate(7);
+            ->paginate(15);
         $categories = Category::all();
         $categoryName = $categories->where('id', $categoryId)
             ->pluck('category_name')

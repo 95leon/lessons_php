@@ -13,7 +13,7 @@
             <div class="align-baseline">
                 @foreach ($categories as $item)
                 <a href="{{ route('news.category', $item->id) }}" class="fs-3 text-decoration-none link-secondary">{{
-                    $item->category_name }}</a><br>
+                    $item->category_name }}</a><br><hr>
                 @endforeach
             </div>
         </div>

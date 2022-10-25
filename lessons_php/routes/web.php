@@ -21,6 +21,7 @@ use App\Http\Controllers\LoginController;
 |
 */
 
+
 Route::view('/about', 'about')->name('about');
 Route::view('/registration', 'registration')->name('registration');
 Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('profile');
@@ -49,7 +50,9 @@ Route::controller(IndexAdminController::class)
         Route::match(['get', 'post'], '/save', 'saveNews')->name('save');
         Route::match(['get', 'post'], '/category/{category}', 'editCategory')->name('category');
         Route::match(['get', 'post'], '/message/{news}', 'editMessage')->name('message');
-        Route::match(['get', 'post'], '/parse/{id_source?}', [ParserController::class, 'index'])->name('parse');
+        Route::match(['get', 'post'], '/parse', [ParserController::class, 'index'])->name('parse');
+        Route::match(['get', 'post'], '/parse/add', [ParserController::class, 'addSource'])->name('parse.add');
+        Route::match(['get', 'post'], '/parse/load', [ParserController::class, 'loadParseNews'])->name('parse.load');
         Route::name('delete.')
             ->prefix('delete')
             ->group(function () {

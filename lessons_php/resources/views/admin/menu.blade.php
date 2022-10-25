@@ -19,7 +19,7 @@
 </li>
 
 <li>
-    <a class="nav-link {{ request()->routeIs('admin.parse')? 'active' : '' }}" href="{{ route('admin.parse', 1) }}">Парсер</a>
+    <a class="nav-link {{ request()->routeIs('admin.parse')? 'active' : '' }}" href="{{ route('admin.parse') }}">Парсер</a>
 </li>
 
 <li>

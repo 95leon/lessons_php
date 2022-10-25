@@ -42,8 +42,8 @@
                             @error('title') <span style="color: red">{{ $message }}</span> @enderror
                         </div>
                         <div class=" form-group">
-                            <label for="editor">Текст статьй</label>
-                            <textarea required class="form-control" id="editor" cols="120" rows="12" name="text"
+                            <label for="newsText">Текст статьй</label>
+                            <textarea required class="form-control" id="newsText" cols="120" rows="12" name="text"
                                 form="news">{{ isset($parse['text']) ? $parse['text'] : old('text') }}</textarea>
                             @error('text') <span style="color: red">{{ $message }}</span> @enderror
                         </div>
@@ -65,7 +65,7 @@
 </div>
 <script>
     ClassicEditor
-        .create( document.querySelector( '#editor') )
+        .create( document.querySelector( '#newsText' ) )
         .catch( error => {
             console.error( error );
         } );
