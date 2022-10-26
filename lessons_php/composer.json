@@ -15,6 +15,7 @@
         "laravel/ui": "^4.0",
         "maatwebsite/excel": "^3.1",
         "orchestra/parser": "^7.0",
+        "predis/predis": "^2.0",
         "socialiteproviders/vkontakte": "^5.0",
         "socialiteproviders/yandex": "^4.1",
         "unisharp/laravel-filemanager": "^1.8"

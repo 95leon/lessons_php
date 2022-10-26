@@ -12,34 +12,52 @@
         <div class="col-md-12">
             <div class="card align-items-center">
                 <div class="card-body">
-                    <a href="#" onclick="history.back();return false;" class="fs-5">Назад</a>
                     <div class="form-group mb-3">
                         <form class="form-control" id="parse_link" method="post" action="{{ route('admin.parse', 1) }}">
                             @csrf
                             <label for="parse_link">Введите ссылку на новостной ресурс</label>
                             <input form="parse_link" type="text" name="parse_link" class="form-control">
-                            <input form="parse_link" type="submit" class="btn btn-outline-primary mt-2"
+                            <input form="parse_link" type="submit" class="btn btn-outline-primary mt-1"
                                 value="Парсить ссылку">
                         </form>
                     </div>
                     <div class="card-header mb-3">
+                        <form class="d-grid gap-2" id="parse_all" method="post" action="{{ route('admin.parse', 1) }}"
+                            onsubmit="return confirm('Обновить все ленты?')">
+                            @csrf
+                            <input hidden form="parse_all" name="parse_all" value="get">
+                            <input form="parse_all" type="submit" class="btn btn-outline-primary mt-1"
+                                value="обновить все ленты">
+                        </form>
                         <table class="table">
                             <tr>
                                 <td>Просмотр</td>
+                                <td>Обновить</td>
                                 <td>Название</td>
                                 <td>Описание</td>
                                 <td>Ссылка</td>
-                                <td>Обновить</td>
+                                <td>Удалить</td>
                             </tr>
                             @forelse($resources as $key)
                             <tr>
                                 <td>
-                                    <form method="post" id="resource{{ $key['id'] }}" action="{{ route('admin.parse') }} ">
+                                    <form method="post" id="resource{{ $key['id'] }}"
+                                        action="{{ route('admin.parse') }} ">
                                         @csrf
                                         <input hidden form="resource{{ $key['id'] }}" name="parse_link"
                                             value="{{ $key['resource_url'] }}">
                                         <input class="btn btn-outline-primary btn-sm" form="resource{{ $key['id'] }}"
                                             type="submit" value="смотреть ленту">
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="post" id="load{{ $key['id'] }}"
+                                        action="{{ route('admin.parse.load') }} ">
+                                        @csrf
+                                        <input hidden form="load{{ $key['id'] }}" name="parse_link"
+                                            value="{{ $key['resource_url'] }}">
+                                        <input class="btn btn-outline-primary btn-sm" form="load{{ $key['id'] }}"
+                                            type="submit" value="обновить ленту">
                                     </form>
                                 </td>
                                 <td>
@@ -52,12 +70,15 @@
                                     <a href="{{ $key['resource_url'] }}" target="_blank">{{ $key['resource_url'] }} </a>
                                 </td>
                                 <td>
-                                    <form method="post" id="load{{ $key['id'] }}" action="{{ route('admin.parse.load') }} ">
+                                    <form method="post" id="resource_delete{{ $key['id'] }}"
+                                        action="{{ route('admin.delete.parse', $key['id']) }} "
+                                        onsubmit="return confirm('Удалить источник?')">
                                         @csrf
-                                        <input hidden form="load{{ $key['id'] }}" name="parse_link"
-                                            value="{{ $key['resource_url'] }}">
-                                        <input class="btn btn-outline-primary btn-sm" form="load{{ $key['id'] }}"
-                                            type="submit" value="обновить ленту">
+                                        @method('delete')
+                                        <input hidden form="resource_delete{{ $key['id'] }}" name="id"
+                                            value="{{ $key['id'] }}">
+                                        <input class="btn btn-outline-danger btn-sm"
+                                            form="resource_delete{{ $key['id'] }}" type="submit" value="удалить ленту">
                                     </form>
                                 </td>
                             </tr>

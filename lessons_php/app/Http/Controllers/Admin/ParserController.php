@@ -8,41 +8,42 @@ use App\Models\Category;
 use App\Models\News;
 use App\Models\Resources;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Orchestra\Parser\Xml\Facade as XmlParser;
+use App\Services\XMLParserService;
+use App\Jobs\NewsParsing;
 
 class ParserController extends Controller
 {
     public function index(
         Resources $resources,
-        Request $request
+        Request $request,
+        XMLParserService $xMLParserService
     ) {
         $data = [];
         $parse_link = "";
         if ($request->isMethod('post')) {
-            $validate = $request->validate([
-                'parse_link' => 'required|url'
-            ]);
-            $xml = XmlParser::load($validate['parse_link']);
-            $data = $xml->parse([
-                'title' => [
-                    'uses' => 'channel.title'
-                ],
-                'description' => [
-                    'uses' => 'channel.description'
-                ],
-                'link' => [
-                    'uses' => 'channel.link'
-                ],
-                'image' => [
-                    'uses' => 'channel.image.url'
-                ],
-                'news' => [
-                    'uses' => 'channel.item[guid,author,title,link,description,pubDate,category]'
-                ]
-            ]);
-            $parse_link = $validate['parse_link'];
+            if ((string) $request->input('parse_all') === "get") {
+
+                $url = $resources->all()
+                    ->pluck('resource_url');
+
+                foreach ($url as $key) {
+                    $request = $request->replace(['parse_link' => $key]);
+                    $this->loadParseNews($request);
+                }
+            } else {
+
+                $validate = $request->validate([
+                    'parse_link' => 'required|url'
+                ]);
+
+                $data = $xMLParserService->getParse($validate['parse_link']);
+                $parse_link = $validate['parse_link'];
+            }
         }
+
         return view('admin.parse', [
             'parse' => $data,
             'resources' => $resources->all(),
@@ -62,48 +63,27 @@ class ParserController extends Controller
                 $resources->save();
             }
         }
+
         return redirect()->route('admin.parse');
     }
 
-    public function loadParseNews(
-        Request $request,
-        News $news,
-        Category $category
-    ) {
-        $validate = $request->validate([
-            'parse_link' => 'required|url'
-        ]);
-        $xml = XmlParser::load($validate['parse_link']);
-        $data = $xml->parse([
-            'news' => [
-                'uses' => 'channel.item[title,description,category]'
-            ]
-        ]);
-        foreach ($data['news'] as $key) {
-
-            $double_news = $news->firstWhere('title', $key['title']);
-
-            if ((bool) $double_news) {
-                continue;
-            }
-
-            $double_category = $category->firstWhere('category_name', [$key['category']]);
-
-            if (!(bool) $double_category) {
-                $category->create([
-                    'category_name' => $key['category']
-                ]);
-                $key['category_id'] = DB::getPdo()->lastInsertId();
-            } else {
-                $key['category_id'] = $double_category->id;
-            }
-
-            $news->create([
-                'title' => (string) $key['title'],
-                'text' => (string) $key['description'],
-                'category_id' => (int) $key['category_id'],
-                'is_private' => false
+    public function loadParseNews(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $validate = $request->validate([
+                'parse_link' => 'required|url'
             ]);
+            $link = $validate['parse_link'];
+        }
+        NewsParsing::dispatch($link);
+        return redirect()->back();
+    }
+
+    public function deleteParseSource(Request $request)
+    {
+        $resource = Resources::find($request->input('id'));
+        if ($resource) {
+            $resource->delete();
         }
         return redirect()->back();
     }

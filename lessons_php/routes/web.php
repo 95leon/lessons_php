@@ -58,6 +58,7 @@ Route::controller(IndexAdminController::class)
             ->group(function () {
                 Route::delete('/message/{id}', 'deleteMessage')->name('message');
                 Route::delete('/category/{id}', 'deleteCategory')->name('category');
+                Route::delete('/parse{id}', [ParserController::class, 'deleteParseSource'])->name('parse');
             });
     });
 
