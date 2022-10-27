@@ -15,11 +15,11 @@
                 <div class="card-body">
 
                     <form action="{{ route('admin.message', $news->id) }}" method="post"
-                        onsubmit="return confirm('Изменить статью?')">
+                        onsubmit="return confirm('Изменить статью?')" id="news">
                         @csrf
                         <div class="form-group">
                             <label for="newsCategory">Категория новости</label>
-                            <select name="category_id" id="newsCategory" class="form-control">
+                            <select name="category_id" id="newsCategory" class="form-control" form="news">
                                 @forelse($categories as $item)
                                 <option {{ $item->id == $news->category_id ? 'selected' : '' }} value="{{ $item->id
                                     }}">{{
@@ -33,23 +33,23 @@
                         <div class="form-group">
                             <label for="newsTitle">Заголовок новости</label>
                             <textarea required class="form-control" id="newsTitle" cols="120" rows="2" name="title"
-                                value="{{ $news->title }}"></textarea>
+                                form="news">{{ $news->title }}</textarea>
                             @error('title') <span style="color: red">{{ $message }}</span> @enderror
                         </div>
                         <div class=" form-group">
-                            <label for="newsTitle">Текст новости</label>
-                            <textarea required class="form-control" id="newsText" cols="120" rows="6" name="text"
-                                value="{{ $news->text }}"></textarea>
+                            <label for="newsText">Текст новости</label>
+                            <textarea required class="form-control" cols="120" rows="6" name="text" form="news"
+                                id="newsText">{{ $news->text }}</textarea>
                             @error('text') <span style="color: red">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-check">
                             <input id="isPrivate" name="is_private" type="checkbox" {{ $news->is_private == 1 ?
-                            'checked' : ''}} class="form-check-input">
+                            'checked' : ''}} class="form-check-input" form="news">
                             <label for="isPrivate">Приватная</label>
                             @error('is_private') <span style="color: red">{{ $message }}</span> @enderror
                         </div><br>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-outline-primary" value="Изменить">
+                            <input type="submit" class="btn btn-outline-primary" value="Изменить" form="news">
                         </div>
                     </form><br>
                     <form action="{{ route('admin.delete.message', $news->id) }}" method="post"
@@ -65,5 +65,11 @@
         </div>
     </div>
 </div>
-
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#newsText' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 @endsection

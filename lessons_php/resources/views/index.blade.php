@@ -7,5 +7,7 @@
 @endsection
 
 @section('content')
-<h1>Главная страница нашего агрегатора новостей</h1>
+<div class="container">
+    <h1>Главная страница нашего агрегатора новостей</h1>
+</div>
 @endsection

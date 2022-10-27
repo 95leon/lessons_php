@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ParseSaveRequest;
 use App\Models\News;
 use App\Models\Category;
 use App\Http\Requests\Admin\CreateRequest;
 use App\Http\Requests\Admin\MessageRequest;
 use App\Http\Requests\Admin\CategoryRequest;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\Console\Input\Input;
 
 class IndexAdminController extends Controller
 {
@@ -42,14 +38,14 @@ class IndexAdminController extends Controller
         if ($request->isMethod('post')) {
             $request = $request->validated();
             if ($request['category_id'] == 0) {
-                $duble_category = $category->firstWhere('category_name', [$request['category_name']]);
+                $double_category = $category->firstWhere('category_name', [$request['category_name']]);
 
-                if (!(bool) $duble_category) {
+                if (!(bool) $double_category) {
                     $category->fill($request);
                     $category->save();
                     $request['category_id'] = $category->id;
                 } else {
-                    $request['category_id'] = $duble_category->id;
+                    $request['category_id'] = $double_category->id;
                 }
             }
 
@@ -85,7 +81,7 @@ class IndexAdminController extends Controller
     {
         $news = Category::findOrFail($categoryId)
             ->news()
-            ->paginate(6);
+            ->paginate(15);
         $categories = Category::all();
         $categoryName = $categories->where('id', $categoryId)
             ->pluck('category_name')
@@ -101,7 +97,7 @@ class IndexAdminController extends Controller
 
     public function editCategory(
         Category $category,
-        CategoryRequest $request
+        CategoryRequest $request,
     ) {
         if ($request->isMethod('post')) {
             $request = $request->validated();

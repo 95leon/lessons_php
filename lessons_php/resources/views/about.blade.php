@@ -7,5 +7,7 @@
 @endsection
 
 @section('content')
-<h1>О нашем проекте</h1>
+<div class="container">
+    <h1>О нашем проекте</h1>
+</div>
 @endsection

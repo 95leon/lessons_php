@@ -195,6 +195,8 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Orchestra\Parser\XmlServiceProvider::class,
         SocialiteProviders\Manager\ServiceProvider::class,
+        Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -212,6 +214,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'XmlParser' => Orchestra\Parser\Xml\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ])->toArray(),
 
 ];
