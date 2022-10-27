@@ -26,8 +26,8 @@
                             onsubmit="return confirm('Обновить все ленты?')">
                             @csrf
                             <input hidden form="parse_all" name="parse_all" value="get">
-                            <input form="parse_all" type="submit" class="btn btn-outline-primary mt-1"
-                                value="обновить все ленты">
+                            <input form="parse_all" type="submit" class="btn btn-outline-success mt-1"
+                                value="ОБНОВИТЬ ВСЕ ИНФОРМАЦИОННЫЕ ЛЕНТЫ">
                         </form>
                         <table class="table">
                             <tr>
@@ -56,7 +56,7 @@
                                         @csrf
                                         <input hidden form="load{{ $key['id'] }}" name="parse_link"
                                             value="{{ $key['resource_url'] }}">
-                                        <input class="btn btn-outline-primary btn-sm" form="load{{ $key['id'] }}"
+                                        <input class="btn btn-outline-success btn-sm" form="load{{ $key['id'] }}"
                                             type="submit" value="обновить ленту">
                                     </form>
                                 </td>

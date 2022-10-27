@@ -4,13 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ResourcesRequest;
-use App\Models\Category;
-use App\Models\News;
 use App\Models\Resources;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
-use Orchestra\Parser\Xml\Facade as XmlParser;
 use App\Services\XMLParserService;
 use App\Jobs\NewsParsing;
 

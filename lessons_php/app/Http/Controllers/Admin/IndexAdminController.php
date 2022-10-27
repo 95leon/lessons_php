@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\ParseSaveRequest;
 use App\Models\News;
 use App\Models\Category;
 use App\Http\Requests\Admin\CreateRequest;
 use App\Http\Requests\Admin\MessageRequest;
 use App\Http\Requests\Admin\CategoryRequest;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\Console\Input\Input;
 
 class IndexAdminController extends Controller
 {
@@ -101,7 +97,7 @@ class IndexAdminController extends Controller
 
     public function editCategory(
         Category $category,
-        CategoryRequest $request
+        CategoryRequest $request,
     ) {
         if ($request->isMethod('post')) {
             $request = $request->validated();

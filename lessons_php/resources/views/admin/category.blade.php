@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <label for="categoryName">Заголовок категории</label>
                             <textarea required class="form-control" id="categoryName" cols="120" rows="1"
-                                name="category_name" value="{{ $category->category_name }}"></textarea>
+                                name="category_name">{{ $category->category_name }}</textarea>
                         </div>
                         @error('category_name') <span style="color: red">{{ $message }}</span> @enderror
                         <div class="form-group">

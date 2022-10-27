@@ -26,10 +26,15 @@ Route::view('/about', 'about')->name('about');
 Route::view('/registration', 'registration')->name('registration');
 Route::match(['get', 'post'], '/profile', [ProfileController::class, 'update'])->name('profile');
 Route::match(['get', 'post'], '/users/export', [ExportController::class, 'exportNews'])->name('users.export');
-Route::get('/auth/vk', [LoginController::class, 'loginVK'])->name('vklogin');
-Route::get('/auth/yandex', [LoginController::class, 'loginYandex'])->name('yandexlogin');
-Route::get('/auth/vk/response', [LoginController::class, 'responseVK'])->name('vkresponse');
-Route::get('/auth/yandex/response', [LoginController::class, 'responseYandex'])->name('yandexresponse');
+
+Route::controller(LoginController::class)
+    ->prefix('auth')
+    ->group(function () {
+        Route::get('/vk', 'loginVK')->name('vklogin');
+        Route::get('/yandex', 'loginYandex')->name('yandexlogin');
+        Route::get('/vk/response', 'responseVK')->name('vkresponse');
+        Route::get('/yandex/response', 'responseYandex')->name('yandexresponse');
+    });
 
 Route::controller(IndexHomeController::class)
     ->group(function () {
@@ -50,9 +55,13 @@ Route::controller(IndexAdminController::class)
         Route::match(['get', 'post'], '/save', 'saveNews')->name('save');
         Route::match(['get', 'post'], '/category/{category}', 'editCategory')->name('category');
         Route::match(['get', 'post'], '/message/{news}', 'editMessage')->name('message');
-        Route::match(['get', 'post'], '/parse', [ParserController::class, 'index'])->name('parse');
-        Route::match(['get', 'post'], '/parse/add', [ParserController::class, 'addSource'])->name('parse.add');
-        Route::match(['get', 'post'], '/parse/load', [ParserController::class, 'loadParseNews'])->name('parse.load');
+        Route::controller(ParserController::class)
+            ->prefix('parse')
+            ->group(function () {
+                Route::match(['get', 'post'], '/', 'index')->name('parse');
+                Route::match(['get', 'post'], '/add', 'addSource')->name('parse.add');
+                Route::match(['get', 'post'], '/load', 'loadParseNews')->name('parse.load');
+            });
         Route::name('delete.')
             ->prefix('delete')
             ->group(function () {
@@ -67,11 +76,8 @@ Route::controller(IndexNewsController::class)
     ->prefix('news')
     ->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::prefix('category')
-            ->group(function () {
-                Route::get('/{categoryId}', 'newsCategory')->name('category');
-                Route::get('/message/{news}', 'newsItem')->name('category.message');
-            });
+        Route::get('/category/{categoryId}', 'newsCategory')->name('category');
+        Route::get('/category/message/{news}', 'newsItem')->name('category.message');
     });
 
 //Auth::routes();

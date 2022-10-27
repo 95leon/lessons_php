@@ -28,7 +28,7 @@ class CreateRequest extends FormRequest
             'title' => 'required|string|min:3|max:250',
             'text' => 'required|string|min:5|max: 500',
             'is_private' => 'sometimes|accepted',
-            'category_name' => 'nullable|string|min:3|max:20|required_if:category_id,0,'
+            'category_name' => 'nullable|string|min:3|max:50|required_if:category_id,0,'
         ];
     }
 
